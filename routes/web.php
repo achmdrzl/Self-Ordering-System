@@ -7,8 +7,10 @@ use App\Http\Controllers\Employee\EmployeeDataController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Employee\ProductsController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -24,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 // user controller
 Route::get('/', HomeController::class. '@index')->name('homepage');
-Route::get('/shop', ShopController::class. '@index')->name('shop.index');
+Route::get('/shop/{slug?}', ShopController::class. '@index')->name('shop.index');
 Route::get('/cart', CartController::class. '@index')->name('cart.index');
 Route::get('/product/{slug}', ProductController::class. '@show')->name('product.show');
 Route::get('/order/checkout', OrderController::class. '@process')->name('order.checkout');
@@ -41,6 +43,10 @@ Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
     // Category
     Route::resource('category', CategoryController::class);
     Route::post('category/images', CategoryController::class.'@storeImg')->name('category.storeImg');
+    
+    //product
+    Route::resource('products', ProductsController::class);
+    Route::post('products/images', ProductsController::class.'@storeImg')->name('products.storeImg');
 });
 
 require __DIR__.'/auth.php';
