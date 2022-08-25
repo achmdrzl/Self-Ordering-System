@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Traits;
 use Illuminate\Http\Request;
 
 trait ImgUploading{
-    public function StoreImg(Request $request){
-        $path = storage_path('tmp/uploads');
+    public function storeImg(Request $request){
+        $path = storage_path('tmp/uploads/');
 
         if(!file_exists($path)){
             mkdir($path, 0775, true);
@@ -24,5 +24,3 @@ trait ImgUploading{
 
     }
 }
-
-?>

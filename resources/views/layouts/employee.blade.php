@@ -24,6 +24,10 @@
   <link rel="stylesheet" href="{{asset('backend/css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{asset('backend/images/favicon.png')}}" />
+
+  <style>
+    
+  </style>
 </head>
 <body>
   <div class="container-scroller">
@@ -192,7 +196,16 @@
     });
 
     $(document).ready( function () {
-        $('#table-id').DataTable();
+        $('#table-id').DataTable({
+          "columnDefs": [{
+                "rowHeight": 'auto',
+                "targets": '_all',
+                "createdCell": function (tr, td, cellData, rowData, row, col) {
+                    $(tr).css('padding', '15px')
+                    $(td).css('height', '50px')
+                }
+            }],
+        });
     });
     
   </script>
