@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('employee.manager.foodData.index', compact('categories'));
+        return view('employee.manager.category.index', compact('categories'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = Category::all()->pluck('name_category', 'id');
-        return view('employee.manager.foodData.create', compact('categories'));
+        return view('employee.manager.category.create', compact('categories'));
 
     }
 
@@ -49,7 +49,7 @@ class CategoryController extends Controller
         }
 
         return redirect()->route('category.index')->with([
-            'message' => 'Category created successfully',
+            'message' => 'Category Created Successfully',
             'type'=> 'success'
         ]);
     }
@@ -74,7 +74,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = Category::whereNull('category_id')->pluck('name_category', 'id');
-        return view('employee.manager.foodData.edit', compact('category', 'categories'));
+        return view('employee.manager.category.edit', compact('category', 'categories'));
     }
 
     /**
@@ -90,13 +90,15 @@ class CategoryController extends Controller
 
         if($request->input('photo', false)){
             if(!$category->photo || $request->input('photo') !== $category->photo->file_name){
-                $category->photo->delete();
+                isset($category->photo) ? $category->photo->delete() : null;
                 $category->addMedia(storage_path('tmp/uploads/') . $request->input('photo'))->toMediaCollection('photo');
             }
+        }else if($category->photo){
+            $category->photo->deleted();
         }
 
         return redirect()->route('category.index')->with([
-            'message' => 'Category updated successfully',
+            'message' => 'Category Updated Successfully',
             'type'=> 'info'
         ]);
     }
@@ -112,7 +114,7 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('category.index')->with([
-            'message' => 'Category deleted successfully',
+            'message' => 'Category Deleted Successfully',
             'type'=> 'danger'
         ]);
     }

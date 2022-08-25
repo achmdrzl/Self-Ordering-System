@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +26,20 @@ class CategoryRequest extends FormRequest
         switch($this->method()){
             case "POST":
                 return[
-                    'name_category' => ['required','unique:categories'],
-                    'category_id' => 'nullable', 
+                    'name_product' => ['required'],
+                    'category_id' => ['required'], 
+                    'price' => ['required'], 
+                    'description' => ['required'], 
+                    'details' => ['required'], 
                 ];
             case "PUT":
             case "PATCH":
                 return[
-                    'name_category' => ['required','unique:categories,name_category,' . $this->route()->category->id],
-                    'category_id' => 'nullable', 
+                    'name_product' => ['required'],
+                    'category_id' => ['required'],
+                    'price' => ['required'],
+                    'description' => ['required'],
+                    'details' => ['required'], 
                 ];
             default: break;
         }

@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Category extends Model implements HasMedia
+class Product extends Model implements HasMedia
 {
     use HasFactory, Sluggable, InteractsWithMedia;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $appends = ['photo'];
+    protected $appends = ['gallery'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -25,22 +25,20 @@ class Category extends Model implements HasMedia
     {
         return [
             'slug' => [
-                'source' => 'name_category',
+                'source' => 'name_product',
                 'onUpdate' => true,
             ]
         ];
     }
 
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
-    public function children(){
-        return $this->hasMany(Category::class);
+    public function getGalleryAttribute(){
+        return $this->getMedia('gallery');
     }
 
-    public function getPhotoAttribute(){
-        return $this->getMedia('photo')->first();
-    }
 }
+
+
