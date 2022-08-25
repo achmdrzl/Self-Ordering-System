@@ -14,7 +14,7 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Detail product</p>
+                                                <p class="card-title">Detail product : <span>{{$product->name_product}}</span></p>
                                                 <table class="table table-hover mb-4">
                                                     <tr>
                                                         <th>Image Product</th>

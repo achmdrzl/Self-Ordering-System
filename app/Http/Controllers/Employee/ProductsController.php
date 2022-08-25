@@ -95,7 +95,7 @@ class ProductsController extends Controller
                 }
             }
         }
-        
+    
         $media = $product->gallery->pluck('file_name')->toArray();
 
         foreach($request->input('gallery', []) as $file){

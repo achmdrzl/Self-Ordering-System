@@ -22,14 +22,14 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <a class="btn btn-primary mb-3" href="{{ route('products.create') }}"><i
-                                                class="ti-plus btn-icon-append"></i> Add product</a>
+                                                class="ti-plus btn-icon-append"></i> Add Product</a>
                                         {{-- {{ $role->table() }} --}}
                                         <table id="table-id" cellpadding="5"
                                             class="table display expandable-table table-responsive-md" style="width:100%;">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name product</th>
+                                                    <th>Name Product</th>
                                                     <th>Category</th>
                                                     <th>Price</th>
                                                     <th>Images</th>
@@ -45,11 +45,10 @@
                                                         <td>{{ $product->price }}</td>
                                                         <td>
                                                             @if ($product->gallery)
-                                                                <a href="{{ $product->gallery->first()->getUrl() }}"
-                                                                    target="_blank">
-                                                                    <img src="{{ $product->gallery->first()->getUrl() }}"
-                                                                        width="250px" height="250px">
-                                                                </a>
+                                                                  <a href="{{ $product->gallery->first()->getUrl() }}" target="_blank">
+
+                                                                      <img src="{{ $product->gallery->first()->getUrl() }}">
+                                                                  </a>
                                                             @else
                                                                 <span class="badge badge-warning">No Image</span>
                                                             @endif
