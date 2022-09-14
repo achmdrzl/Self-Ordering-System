@@ -1,3 +1,4 @@
+
     @extends('layouts.frontend')
 
     @section('content')
@@ -28,7 +29,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="checkout__order2">
-                                <h4 class="text-center">Thank you!. Your order hass been received😊.</h4> 
+                                <h4 class="text-center">Thank you!. Your order hass been received😊</h4> 
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 mt-3">
@@ -44,15 +45,19 @@
                                     <th>Date Order</th>
                                     <th>Total</th>
                                     <th>Payment Method</th>
+                                    <th>Status</th>
                                 </thead>
                                 <tbody>
+                                    @foreach($orders as $order)
                                     <tr>
-                                        <td>MG123</td>
-                                        <td>15</td>
-                                        <td>13/08/2022</td>
-                                        <td>Rp. 154.000,-</td>
-                                        <td>Cashless Method</td>
+                                        <td>{{ strtoupper($order->orderCode) }}</td>
+                                        <td>{{ $order->table_id }}</td>
+                                        <td>{{ $order->order_date }}</td>
+                                        <td>Rp. {{ $order->total }}</td>
+                                        <td>{{ strtoupper($order->payMethod) }}</td>
+                                        <td>{{ strtoupper($order->status_order) }}</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>
@@ -61,9 +66,9 @@
                 </form>
                     <div class="col-lg-12 mt-4">
                     <div class="shoping__cart__btns">
-                        <a href="#" class="secondary-btn cart-btn">BACK TO HOME</a>
-                        <a href="#" class="secondary-btn cart-btn-right mt-2"><span class="icon_loading"></span>
-                            CheckOrder</a>
+                        <a href="{{ route('homepage') }}" class="secondary-btn cart-btn">BACK TO HOME</a>
+                        {{-- <a href="#" class="secondary-btn cart-btn-right mt-2"><span class="icon_loading"></span>
+                            CheckOrder</a> --}}
                     </div>
                 </div>
             </div>

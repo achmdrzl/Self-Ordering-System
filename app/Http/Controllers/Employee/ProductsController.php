@@ -19,7 +19,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::get()->all();
+        $products = Product::all();
+
         return view('employee.manager.product.index', compact('products'));
     }
 
@@ -95,7 +96,7 @@ class ProductsController extends Controller
                 }
             }
         }
-        
+    
         $media = $product->gallery->pluck('file_name')->toArray();
 
         foreach($request->input('gallery', []) as $file){

@@ -31,7 +31,6 @@ class CategoryController extends Controller
     {
         $categories = Category::all()->pluck('name_category', 'id');
         return view('employee.manager.category.create', compact('categories'));
-
     }
 
     /**
@@ -44,13 +43,13 @@ class CategoryController extends Controller
     {
         $category = Category::create($request->validated());
 
-        if($request->input('photo', false)){
-            $category->addMedia(storage_path('tmp/uploads/'). $request->input('photo'))->toMediaCollection('photo');
+        if ($request->input('photo', false)) {
+            $category->addMedia(storage_path('tmp/uploads/') . $request->input('photo'))->toMediaCollection('photo');
         }
 
         return redirect()->route('category.index')->with([
             'message' => 'Category Created Successfully',
-            'type'=> 'success'
+            'type' => 'success'
         ]);
     }
 
@@ -88,18 +87,18 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
 
-        if($request->input('photo', false)){
-            if(!$category->photo || $request->input('photo') !== $category->photo->file_name){
+        if ($request->input('photo', false)) {
+            if (!$category->photo || $request->input('photo') !== $category->photo->file_name) {
                 isset($category->photo) ? $category->photo->delete() : null;
                 $category->addMedia(storage_path('tmp/uploads/') . $request->input('photo'))->toMediaCollection('photo');
             }
-        }else if($category->photo){
+        } else if ($category->photo) {
             $category->photo->deleted();
         }
 
         return redirect()->route('category.index')->with([
             'message' => 'Category Updated Successfully',
-            'type'=> 'info'
+            'type' => 'info'
         ]);
     }
 
@@ -115,7 +114,7 @@ class CategoryController extends Controller
 
         return redirect()->route('category.index')->with([
             'message' => 'Category Deleted Successfully',
-            'type'=> 'danger'
+            'type' => 'danger'
         ]);
     }
 }

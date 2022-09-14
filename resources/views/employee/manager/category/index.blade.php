@@ -18,7 +18,7 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-title">Foods Data</p>
+                                <p class="card-title">Categories Data</p>
                                 <div class="row">
                                     <div class="col-12">
                                         <a class="btn btn-primary mb-3" href="{{ route('category.create') }}"><i
