@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Stevebauman\Location\Facades\Location;
 
 class DashboardController extends Controller
 {
@@ -17,7 +18,12 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        return view('employee.dashboard');
+        // $locationData = Location::get('https://' . $request->ip()); // https or http according to your necessary.
+
+        // return view('welcome', compact('locationData'));
+        $location = Location::get();
+
+        return view('employee.dashboard', compact('location'));
     }
 
     public function cek(){

@@ -24,36 +24,33 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <h4>Billing Details</h4>
-                <form action="#">
+                <h4>Billing Details on Table {{ request()->session()->get('no_table') }}</h4>
+                <form action="{{ route('order.store') }}" method="POST">
+                    @csrf
                     <div class="row">
-                        <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-12 col-md-12" >
                             <div class="checkout__order">
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__products">Products <span>Total</span></div>
                                 <ul>
-                                    <li>Vegetable’s Package <span>$75.99</span></li>
-                                    <li>Fresh Vegetable <span>$151.99</span></li>
-                                    <li>Organic Bananas <span>$53.99</span></li>
+                                    @foreach($carts as $cart)
+                                    <li>{{ $cart->name }} x{{ $cart->qty }} (Rp. {{ $cart->price }})<span>Rp. {{ number_format($cart->price*$cart->qty) }}</span></li>
+                                    @endforeach
                                 </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>$750.99</span></div>
+                                <div class="checkout__order__subtotal">Subtotal <span>Rp. {{ Cart::subtotal() }}</span></div>
+                                <div class="checkout__order__total">Total <span>Rp. {{ Cart::total() }}</span></div>
                                 <p style="font-weight:500;">Metode Pembayaran</p>
-                                <div class="checkout__input__checkbox">
-                                    <label for="payment">
-                                        Cash Method
-                                        <input type="checkbox" id="payment">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <div class="input-group">
+                                    <div style="width:550px; box-sizing: border-box;">
+                                        <select name="payMethod" id="payMethod" class="form-input">
+                                            <option value="default" selected>-- Select Payment Method --</option>
+                                            <option value="cashless">Cashless Method</option>
+                                            <option value="cash">Cash Method</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="paypal">
-                                        Cashless Method
-                                        <input type="checkbox" id="paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <div style="margin-bottom:25px"></div>
+                                <button type="submit" class="site-btn" {{ Cart::content()->count() < 1 ? 'disabled' : '' }}>PLACE ORDER</button>
                             </div>
                         </div>
                     </div>

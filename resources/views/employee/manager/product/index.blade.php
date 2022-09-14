@@ -1,7 +1,7 @@
     @extends('layouts.employee')
 
     @section('content')
-        @include('layouts.partials.sidebar')
+    @include('layouts.partials.sidebar')
 
         <!-- partial -->
         <div class="main-panel">

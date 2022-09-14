@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -13,7 +15,14 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('frontend.cart.index');
+        $products = Cart::content();
+        $imgs = [];
+        foreach ($products as $cart) {
+            $imgs = Product::find($cart->id)->get();
+        }
+
+        return view('frontend.cart.index', compact('products', 'imgs'));
+        // return view('frontend.cart.index');
     }
 
     /**
@@ -34,7 +43,24 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::findOrFail($request->input('id'));
+        Cart::setGlobalTax(2.5);
+        
+        $quantity = $request->input('quantity');
+
+        $quantity == 0 ? $quantity = 1 : '';
+
+        Cart::add(
+            $product->id,
+            $product->name_product,
+            $quantity,
+            $product->price,
+        );
+
+        return redirect()->back()->with([
+            'message' => 'Successfully Added to Cart',
+            'type' => 'success'
+        ]);
     }
 
     /**
@@ -77,8 +103,12 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Cart::remove($request->input('id'));
+        return redirect()->back()->with([
+            'message' => 'Successfully Deleted Product',
+            'type' => 'danger'
+        ]);
     }
 }

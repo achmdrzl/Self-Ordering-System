@@ -19,7 +19,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::get()->all();
+        $products = Product::all();
+
         return view('employee.manager.product.index', compact('products'));
     }
 
