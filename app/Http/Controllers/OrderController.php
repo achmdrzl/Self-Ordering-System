@@ -49,9 +49,8 @@ class OrderController extends Controller
 
         $orders = Order::where('table_id', $no_table)
         ->when('status_order', function ($query) {
-            return $query->where('status_order', 'Pending');
-        })
-            ->get();
+            return $query->where('status_order', 'Waiting')->orWhere('status_order', 'Cooked');
+        })->get();
 
         return view('frontend.order.orderSuccess', compact('orders'));
     }

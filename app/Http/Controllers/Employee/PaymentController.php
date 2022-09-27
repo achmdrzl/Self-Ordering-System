@@ -3,36 +3,89 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Invoice;
+use App\Models\Order;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function cashlessPay(Request $request, $id)
     {
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-cvpXFKli6msaOf-BhZeQ0zfM';
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+        // return $request;
+        $data = json_decode($request->get('result'));
+        $invoice = Invoice::where('id', $id)->first();
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => rand(),
-                'gross_amount' => 10000,
-            ),
-            'customer_details' => array(
-                'first_name' => 'budi',
-                'last_name' => 'pratama',
-                'email' => 'budi.pra@example.com',
-                'phone' => '08111222333',
-            ),
-        );
+        $invoice->update([
+            'status' => $data->transaction_status,
+        ]);
 
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $orders = Order::where(
+            'id',
+            $id
+        )->get();
+        
+        foreach ($orders as $order) {
 
-        return view('employee.cashier.payment.index', compact('snapToken'));
+            Customer::where('id', $order->table_id)->update([
+                'status' => 'Free'
+            ]);
+
+            Order::where('id', $id)->update([
+                'status_order' => 'Finished'
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function cashPay(Request $request, $id)
+    {
+        $payTotal = $request->input('payTotal');
+
+        $orders = Order::where('id', $id)->get();
+
+        foreach ($orders as $order) {
+            $invoice = Invoice::where('id', $order->invoice_id)->get();
+            foreach ($invoice as $item) {
+                $total = $payTotal - $item->total;
+
+                Invoice::where('id', $order->invoice_id)
+                    ->update([
+                        'payTotal' => $payTotal,
+                        'PayBack' => $total,
+                        'status' => 'Settlement'
+                    ]);
+            }
+
+            Customer::where('id', $order->table_id)->update([
+                'status' => 'Free'
+            ]);
+
+            Order::where('id', $id)->update([
+                'status_order' => 'Finished'
+            ]);
+        }
+
+        Toastr::success('Payment Success! Change Money Rp. $total', 'Success', [
+            "closeButton" => true,
+            "debug" => false,
+            "newestOnTop" => true,
+            "progressBar" => true,
+            "positionClass" => "toast-top-full-width",
+            "preventDuplicates" => false,
+            "onclick" => null,
+            "showDuration" => "10000",
+            "hideDuration" => "10000",
+            "timeOut" => "50000",
+            "extendedTimeOut" => "10000",
+            "showEasing" => "swing",
+            "hideEasing" => "linear",
+            "showMethod" => "fadeIn",
+            "hideMethod" => "fadeOut"
+        ]);
+
+        return redirect()->back();
     }
 }

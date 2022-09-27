@@ -9,9 +9,13 @@ use Livewire\Component;
 class CartList extends Component
 {
 
-    public $rowId;
+    public $rowId, $delete_id;
 
     public int $qty = 0;
+
+    protected $listeners = [
+        'deleteConfirmed' => 'deleteConfirm'
+    ];
 
     public function render()
     {
@@ -45,14 +49,17 @@ class CartList extends Component
 
     public function removeItem($rowId)
     {
-        Cart::remove($rowId);
+        $this->delete_id = $rowId;
+        $this->dispatchBrowserEvent('show-delete-confirm');
+
+    }
+
+    public function deleteConfirm()
+    {
+        Cart::remove($this->delete_id);
 
         $this->emit('cartUpdated');
 
-        return ([
-            'message' => 'Table Deleted Successfully',
-            'type' => 'danger'
-        ]);
-
+        $this->dispatchBrowserEvent('tableDeleted');
     }
 }

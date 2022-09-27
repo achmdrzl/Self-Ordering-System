@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('price');
             $table->text('description');
             $table->text('details');
+            $table->string('status')->default('active');
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

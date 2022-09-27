@@ -20,8 +20,8 @@ class Customer extends Model
         return $this->hasMany(Order::class, 'table_id');
     }
 
-    public function detailOrder()
-    {
-        return $this->hasMany(detailOrder::class);
+    public function invoice(){
+        return $this->belongsTo(Invoice::class);
     }
+
 }

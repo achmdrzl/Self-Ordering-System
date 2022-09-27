@@ -62,12 +62,11 @@
                                                     <div class="form-group">
                                                         <label for="description">Description Product</label>
                                                         <textarea class="form-control" name="description" id="description" cols="30" rows="5"
-                                                            placeholder="Description Product" value="{{ old('description', $product->description) }}"></textarea>
+                                                            placeholder="Description Product">{{ old('description', $product->description) }}</textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="details">Details Product</label>
-                                                        <textarea class="form-control" name="details" id="details" cols="30" rows="5" placeholder="Details Product"
-                                                            value="{{ old('details', $product->details) }}"></textarea>
+                                                        <textarea class="form-control" name="details" id="details" cols="30" rows="5" placeholder="Details Product">{{ old('details', $product->details) }}</textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="gallery">Upload Images Product</label>

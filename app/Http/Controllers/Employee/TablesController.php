@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TableRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Brian2694\Toastr\Facades\Toastr;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TablesController extends Controller
 {
@@ -74,7 +77,10 @@ class TablesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $table = Customer::find($id);
+
+        return view('employee.manager.tables.edit', compact('table'));
+        
     }
 
     /**
@@ -86,7 +92,20 @@ class TablesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'no_table' => 'required',
+        ]);
+
+        $input = $request->all();
+        $table = Customer::find($id);
+        $table->update($input);
+
+        Toastr::info('Tables Updated Successfully!', 'Success', ["progressBar" => true,]);
+
+        return redirect()->route('tables.index')->with([
+            'message' => 'User Updated Successfully',
+            'type' => 'success',
+        ]);
     }
 
     /**
@@ -103,5 +122,17 @@ class TablesController extends Controller
             'message' => 'Table Deleted Successfully',
             'type' => 'danger'
         ]);
+    }
+
+    public function printTable($id)
+    {
+        $table = Customer::where('id', $id)->first();
+
+        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('http://localhost:8000/set/' . $table->no_table));
+
+        $customPaper = array(0, 0, 720, 1440);
+        $pdf = FacadePdf::loadView('employee.manager.tables.printTable', compact('table', 'qrcode'))->setPaper($customPaper, 'portrait');
+
+        return $pdf->download('Table - ' . strtoupper($table->no_table) . '.pdf');
     }
 }

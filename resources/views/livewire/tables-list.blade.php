@@ -2,8 +2,8 @@
     <table cellpadding="5" class="table display expandable-table table-responsive-sm" style="width:100%;">
         <thead>
             <tr>
-                <th>No. Tables</th>
-                <th>Status</th>
+                <th width="300px">No. Tables</th>
+                <th width="500px">Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -22,19 +22,17 @@
                     </td>
                     <td>
                         <div>
-                            <a href="{{ route('tables.show', $customer->id) }}" class="btn btn-info btn-md text-white"
-                                style="width: 50px; height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                    class="ti-printer"></i></a>
-                            {{-- <form onclick="return confirm('are you sure?')"
-                            action="{{ route('tables.destroy', $customer->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger btn-md" style="width: 50px; height:40px"><i
-                                    class="ti-trash"></i></button>
-                        </form> --}}
-                            <button wire:click="removeItem({{ $customer->id }});" type="submit"
-                                class="btn btn-danger btn-sm" style="width: 50px; height:40px"><i
-                                    class="ti-trash"></i></button>
+                            <a href="{{ route('print.table', $customer->id) }}" class="btn btn-info btn-md text-white"
+                                style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
+                                    class="ti-printer"></i> Print</a>
+                            @if (Auth::user()->hasRole('manager'))
+                            <a href="{{ route('tables.edit', $customer->id) }}" class="btn btn-primary btn-md text-white"
+                                style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
+                                    class="ti-pencil"></i> Edit</a>
+                                <button wire:click.prevent="removeItem({{ $customer->id }});" type="submit"
+                                    class="btn btn-danger btn-sm" style="height:40px"><i
+                                        class="ti-trash"></i> Delete</button>
+                            @endif
                         </div>
                     </td>
                 </tr>

@@ -6,7 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "brian2694/laravel-toastr": "^5.57",
         "bumbummen99/shoppingcart": "^4.2",
+        "consoletvs/charts": "6.*",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
@@ -14,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "midtrans/midtrans-php": "^2.5",
+        "simplesoftwareio/simple-qrcode": "~4",
         "spatie/laravel-medialibrary": "10.0.0",
         "spatie/laravel-permission": "^5.5",
         "stevebauman/location": "^6.5",

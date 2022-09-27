@@ -23,12 +23,13 @@
         <section class="product-details spad">
             <div class="container">
                 @if (session()->has('message'))
-                    <div class="alert alert-{{ session()->get('type') }} alert-dismissible fade show">
+                    {{-- <div class="alert alert-{{ session()->get('type') }} alert-dismissible fade show">
                         {{ session()->get('message') }}
                         <button class="close" type="button" data-dismiss="alert">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
+                    </div> --}}
+                    {!! Toastr::message() !!}
                 @endif
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -62,11 +63,12 @@
                             </div>
                             <a type="submit" data-method="post" class="primary-btn">
                                 <button type="submit"
-                                    style="background: 0%; border:none; display:flexbox; font-weight:bold; color:white">ADD TO
+                                    style="background: 0%; border:none; display:flexbox; font-weight:bold; color:white">ADD
+                                    TO
                                     CART</button>
                             </a>
                             </form>
-                            
+
                             <ul>
                                 <li><b>Availability</b> <span>In Stock</span></li>
                                 <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
@@ -160,3 +162,9 @@
         </section>
         <!-- Related Product Section End -->
     @endsection
+
+    @push('style-alt')
+        <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+        <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    @endpush
