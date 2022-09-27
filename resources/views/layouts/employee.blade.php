@@ -26,6 +26,12 @@
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
     @livewireStyles
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{-- Toastr Notify --}}
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {{-- Midtrans --}}
     <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
     <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="SB-Mid-client-pMsnnzvaNS5H1Tbx"></script>
@@ -184,37 +190,6 @@
     <script src="{{ asset('backend/js/dataTables.select.min.js') }}"></script>
 
     <script>
-        var table = $('#employee-table').DataTable({
-            processing: true,
-            serverSide: true,
-            scrollX: true,
-            ajax: '{{ route('employeeData.list') }}',
-            columns: [{
-                    data: 'id',
-                    name: 'id'
-                },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'name',
-                    name: 'role'
-                },
-                {
-                    data: 'created_at',
-                    name: 'created_at'
-                },
-                {
-                    data: 'updated_at',
-                    name: 'updated_at'
-                },
-            ],
-            order: [
-                [1, 'asc']
-            ]
-        });
-
         $(document).ready(function() {
             $('#table-id').DataTable({
                 "columnDefs": [{
@@ -230,6 +205,9 @@
         // document.body.style.transform = 'scale(1)';
     </script>
 
+    {{-- Sweet Alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{{ asset('backend/js/off-canvas.js') }}"></script>
@@ -239,8 +217,8 @@
     <script src="{{ asset('backend/js/todolist.js') }}"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="{{ asset('backend/js/dashboard.js') }}"></script>
-    <script src="{{ asset('backend/js/Chart.roundedBarCharts.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/dashboard.js') }}"></script>
+    <script src="{{ asset('backend/js/Chart.roundedBarCharts.js') }}"></script> --}}
     <!-- End custom js for this page-->
     @stack('script-alt')
     @livewireScripts

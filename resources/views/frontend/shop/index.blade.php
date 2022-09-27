@@ -23,12 +23,7 @@
         <section class="product spad">
             <div class="container">
                 @if (session()->has('message'))
-                    <div class="alert alert-{{ session()->get('type') }} alert-dismissible fade show">
-                        {{ session()->get('message') }}
-                        <button class="close" type="button" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    {!! Toastr::message() !!}
                 @endif
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
@@ -74,7 +69,8 @@
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $product->id }}" />
                                                         <a type="submit" data-method="post">
-                                                            <button type="submit" style="border: none; color:transparent  background-color: transparent; border-radius:50% height: 40px;width: 40px; ">
+                                                            <button type="submit"
+                                                                style="border: none; color:transparent  background-color: transparent; border-radius:50% height: 40px;width: 40px; ">
                                                                 <i class="fa fa-shopping-cart"></i>
                                                             </button>
                                                         </a>
@@ -107,3 +103,9 @@
         </section>
         <!-- Product Section End -->
     @endsection
+
+    @push('style-alt')
+        <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+        <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    @endpush

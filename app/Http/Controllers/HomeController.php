@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function getCategories()
     {
         // $products = Product::with('category')->get(['id', 'name_product', 'price', 'slug']);
-        $category = Category::all();
+        $category = Category::where('status', 'active')->get();
         return response()->json([
             'status' => 200,
             'category' => $category

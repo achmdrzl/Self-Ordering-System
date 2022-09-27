@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
+use PDF;
 
 class OrdersController extends Controller
 {
@@ -17,32 +21,8 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-cvpXFKli6msaOf-BhZeQ0zfM';
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
-
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => rand(),
-                'gross_amount' => 10000,
-            ),
-            'customer_details' => array(
-                'first_name' => 'lutfi',
-                'last_name' => 'syahindra',
-                'email' => 'lutfi.sya@example.com',
-                'phone' => '08111222333',
-            ),
-        );
-
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-        $orders = Order::all();
-        return view('employee.manager.order.index', compact('orders', 'snapToken'));
+        $orders = Order::with('invoice')->latest()->get();
+        return view('employee.manager.order.index', compact('orders'));
     }
 
     /**
@@ -74,17 +54,56 @@ class OrdersController extends Controller
      */
     public function show(Order $orders, $id)
     {
-        $orders = Order::where('id', $id)->get();
-        $orderProducts = OrderProduct::where('order_id', $id)->get();
+        $orders = Order::where('id', $id)->first();
+        // Payment Detail
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
 
-
-        foreach($orderProducts as $item){
-            $items = Product::where('id', $item->product_id)->get();
+        if ($orders->invoice->status == 'Settlement' || $orders->invoice->status == 'settlement') {
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => rand(),
+                    'gross_amount' => intval(500000),
+                ),
+                'customer_details' => array(
+                    'first_name' => "Example",
+                    'last_name' => '',
+                    'email' => 'ogani@gmail.com',
+                    'phone' => '08123456678',
+                ),
+            );
+        } else {
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => $orders->orderCode,
+                    // 'order_id' => rand(),
+                    'gross_amount' => intval($orders->total),
+                ),
+                'customer_details' => array(
+                    'first_name' => "Table " . $orders->table_id,
+                    'last_name' => '',
+                    'email' => 'ogani@gmail.com',
+                    'phone' => '08123456678',
+                ),
+            );
         }
-        // dd($orderProduct);
 
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        return view('employee.manager.order.show', compact('orders', 'orderProducts'));
+        // get data order detail
+        $orderProducts = OrderProduct::where('order_id', $id)->get();
+        // dd($orderProducts);
+        foreach ($orderProducts as $item) {
+            $items = Product::find($item->product_id);
+        }
+
+        return view('employee.manager.order.show', compact('orders', 'orderProducts', 'snapToken'));
     }
 
     /**
@@ -116,8 +135,25 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        $orderProduct = OrderProduct::where('order_id', $order->id)->delete();
+
+        return redirect()->route('orders.index')->with([
+            'message' => 'Order Deleted Successfully',
+            'type' => 'danger'
+        ]);
+    }
+
+    public function printPDF($id)
+    {
+        $orders = Order::with(['orderProduct', 'products', 'invoice'])->where('id', $id)->first();
+
+        $customPaper = array(0, 0, 720, 1440);
+        $pdf = FacadePdf::loadView('employee.cashier.bill.printPDF', compact('orders'))->setPaper($customPaper, 'portrait');
+
+        return $pdf->download('INVOICE #' . strtoupper($orders->orderCode) . '.pdf');
     }
 }

@@ -42,7 +42,7 @@
                                                             id="nameCategory" placeholder="Name Category"
                                                             value="{{ old('name_category', $category->name_category) }}">
                                                     </div>
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label for="parent">Parent</label>
                                                         <select type="text" class="form-control" name="category_id"
                                                             id="parent" placeholder="Name Category">
@@ -53,7 +53,7 @@
                                                                     value="{{ $id }}">{{ $categoryName }}</option>
                                                             @endforeach
                                                         </select>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-group">
                                                         <label for="photo">Upload Images</label>
                                                         <div class="needsclick dropzone" id="photoDropzone">

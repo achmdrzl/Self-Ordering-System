@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="checkout__order2">
-                                <h4 class="text-center">Thank you!. Your order hass been received😊</h4> 
+                                <h4 class="text-center">Thank you! Your order has been received😊</h4> 
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 mt-3">
@@ -48,13 +48,14 @@
                                     <th>Status</th>
                                 </thead>
                                 <tbody>
+                                    {{-- @dd($orders) --}}
                                     @foreach($orders as $order)
                                     <tr>
                                         <td>{{ strtoupper($order->orderCode) }}</td>
                                         <td>{{ $order->table_id }}</td>
-                                        <td>{{ $order->order_date }}</td>
-                                        <td>Rp. {{ $order->total }}</td>
-                                        <td>{{ strtoupper($order->payMethod) }}</td>
+                                        <td>{{ date('d F Y', strtotime($order->invoice->order_date)) }}</td>
+                                        <td>Rp. {{ number_format($order->invoice->total) }}</td>
+                                        <td>{{ strtoupper($order->invoice->payMethod) }}</td>
                                         <td>{{ strtoupper($order->status_order) }}</td>
                                     </tr>
                                     @endforeach

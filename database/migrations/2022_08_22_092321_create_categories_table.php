@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name_category');
             $table->string('slug')->unique();
             $table->text('img_category')->nullable();
+            $table->string('status')->default('active');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });

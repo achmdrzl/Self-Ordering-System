@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('no_table');
             $table->string('status')->default('Free');
-            $table->foreignId('invoice_id');
             $table->timestamps();
         });
     }

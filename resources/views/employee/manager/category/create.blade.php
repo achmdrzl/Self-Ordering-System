@@ -39,7 +39,7 @@
                                                         <input type="text" class="form-control" name="name_category"
                                                             id="nameCategory" placeholder="Name Category">
                                                     </div>
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label for="parent">Parent</label>
                                                         <select type="text" class="form-control" name="category_id"
                                                             id="parent" placeholder="Name Category">
@@ -49,7 +49,7 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-group">
                                                         <label for="photo">Upload Images</label>
                                                         <div class="needsclick dropzone" id="photoDropzone"></div>

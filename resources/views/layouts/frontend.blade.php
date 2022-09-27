@@ -22,14 +22,15 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
     {{-- {{ vite_assets() }} --}}
+    @stack('style-alt')
     @livewireStyles
 </head>
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    {{-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> --}}
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -124,6 +125,9 @@
     </footer>
     <!-- Footer Section End -->
 
+    {{-- Sweet Alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Js Plugins -->
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
@@ -136,6 +140,7 @@
     @viteReactRefresh
     @vite(['resources/js/app.js'])
     @livewireScripts
+    @stack('script-alt')
 </body>
 
 </html>

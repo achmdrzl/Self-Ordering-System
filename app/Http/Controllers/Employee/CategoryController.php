@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\ImgUploading;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -46,6 +47,8 @@ class CategoryController extends Controller
         if ($request->input('photo', false)) {
             $category->addMedia(storage_path('tmp/uploads/') . $request->input('photo'))->toMediaCollection('photo');
         }
+
+        Toastr::success('Category Created Successfully!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('category.index')->with([
             'message' => 'Category Created Successfully',
@@ -96,6 +99,8 @@ class CategoryController extends Controller
             $category->photo->deleted();
         }
 
+        Toastr::info('Category Updated Successfully!', 'Success', ["progressBar" => true,]);
+
         return redirect()->route('category.index')->with([
             'message' => 'Category Updated Successfully',
             'type' => 'info'
@@ -110,11 +115,17 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        if ($category->status == 'unactive') {
+            $category->update([
+                'status' => 'active'
+            ]);
+            return response()->json(['status' => 'Category is Active!']);
+        } else {
+            $category->update([
+                'status' => 'unactive'
+            ]);
 
-        return redirect()->route('category.index')->with([
-            'message' => 'Category Deleted Successfully',
-            'type' => 'danger'
-        ]);
+            return response()->json(['status' => 'Category is Unactive!']);
+        }
     }
 }

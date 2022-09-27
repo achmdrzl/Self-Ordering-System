@@ -53,8 +53,8 @@ class Product extends Model implements HasMedia, Buyable
         return $this->belongsTo(OrderProduct::class);
     }
 
-    public function order()
-    {
-        return $this->belongsTo(Order::class);
-    }
+    // public function order()
+    // {
+    //     return $this->belongsTo(Order::class);
+    // }
 }

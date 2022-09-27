@@ -18,10 +18,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('table_id');
             $table->string('orderCode')->nullable();
-            $table->date('order_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->string('payMethod')->nullable();
             $table->string('total');
-            $table->string('status_order')->default('Pending');
+            $table->string('status_order')->default('Waiting');
+            $table->foreignId('invoice_id');
             $table->timestamps();
         });
     }

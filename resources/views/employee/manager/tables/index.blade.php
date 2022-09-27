@@ -1,19 +1,19 @@
     @extends('layouts.employee')
 
     @section('content')
-        
-    @include('layouts.partials.sidebar')
+        @include('layouts.partials.sidebar')
 
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
                 @if (session()->has('message'))
-                    <div class="alert alert-{{ session()->get('type') }} alert-dismissible fade show">
+                    {{-- <div class="alert alert-{{ session()->get('type') }} alert-dismissible fade show">
                         {{ session()->get('message') }}
                         <button class="close" type="button" data-dismiss="alert">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
+                    </div> --}}
+                    {!! Toastr::message() !!}
                 @endif
                 <div class="row">
                     <div class="col-md-12 grid-margin stretch-card">
@@ -37,22 +37,29 @@
             <!-- content-wrapper ends -->
         @endsection
 
-        @push('style-alt')
-            <style>
-                .table #table-id tbody td div {
-                    width: 160px;
-                    height: 50px;
-                    overflow: hidden;
-                    word-wrap: break-word;
-                }
+        @push('script-alt')
+            {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
-                .dataTables tbody tr {
-                    min-height: 35px;
-                    /* or whatever height you need to make them all consistent */
-                }
+            <script>
+                window.addEventListener('show-delete-confirm', event => {
+                    swal({
+                        title: "Apakah anda yakin?",
+                        text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            Livewire.emit('deleteConfirmed')
+                        } else {
+                            swal("Cancel!", "Undelete Successfully!", "error");
 
-                #table-id tbody>tr>td {
-                    white-space: nowrap;
-                }
-            </style>
+                        }
+                    })
+                })
+
+                window.addEventListener('tableDeleted', event => {
+                    swal("Success", "Table Deleted Successfully", "success");
+                })
+            </script>
         @endpush

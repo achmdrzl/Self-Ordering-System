@@ -186,6 +186,9 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\HtmlServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -216,6 +219,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         // 'Location' => 'Stevebauman\Location\Facades\Location',
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
     ])->toArray(),
 
 ];

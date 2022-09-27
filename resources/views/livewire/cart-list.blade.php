@@ -84,7 +84,7 @@
                                         </td>
                                         <td class="shoping__cart__item__close">
                                             <div>
-                                                <button wire:click="removeItem('{{ $product->rowId }}');"
+                                                <button wire:click.prevent="removeItem('{{ $product->rowId }}');"
                                                     class="btn btn-danger btn-md"
                                                     style="width: 50px; height:40px; background-color: transparent; border: none; :focus{outline:none; box-shadow:none}"><span
                                                         class="icon_close"></span></button>

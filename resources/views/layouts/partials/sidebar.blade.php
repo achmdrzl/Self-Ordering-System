@@ -10,15 +10,15 @@
 
               @if (Auth::user()->HasRole('cashier'))
                   <li class="nav-item">
-                      <a class="nav-link {{ request()->segment(1) == 'payment' ? 'active' : '' }}" href="{{ route('orders.index') }}" aria-expanded="false"
-                          aria-controls="auth">
+                      <a class="nav-link {{ request()->segment(1) == 'payment' ? 'active' : '' }}"
+                          href="{{ route('orders.index') }}" aria-expanded="false" aria-controls="auth">
                           <i class="icon-head menu-icon"></i>
                           <span class="menu-title">Payment Order</span>
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link {{ request()->segment(1) == 'tables' ? 'active' : '' }}" href="{{ route('tables.index') }}" aria-expanded="false"
-                          aria-controls="auth">
+                      <a class="nav-link {{ request()->segment(1) == 'tables' ? 'active' : '' }}"
+                          href="{{ route('tables.index') }}" aria-expanded="false" aria-controls="auth">
                           <i class="ti-pie-chart menu-icon"></i>
                           <span class="menu-title">Tables Management</span>
                       </a>
@@ -43,8 +43,16 @@
                           </ul>
                       </div>
                   </li>
-                 <li class="nav-item">
-                      <a class="nav-link {{ request()->segment(1) == 'tables' ? 'active' : '' }}" href="{{ route('tables.index') }}">
+                  <li class="nav-item">
+                      <a class="nav-link {{ request()->segment(1) == 'payment' ? 'active' : '' }}"
+                          href="{{ route('orders.index') }}" aria-expanded="false" aria-controls="auth">
+                          <i class="icon-head menu-icon"></i>
+                          <span class="menu-title">Order</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {{ request()->segment(1) == 'tables' ? 'active' : '' }}"
+                          href="{{ route('tables.index') }}">
                           <i class="ti-pie-chart menu-icon"></i>
                           <span class="menu-title">Tables Management</span>
                       </a>
@@ -56,7 +64,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" href="{{ route('report.index') }}">
                           <i class="ti-money menu-icon"></i>
                           <span class="menu-title">Report Sales</span>
                       </a>

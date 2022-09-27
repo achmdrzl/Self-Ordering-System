@@ -46,7 +46,7 @@ class ShopController extends Controller
             }
         }
 
-        $products = $products->orderBy($sortField, $sortBy)->paginate(5);
+        $products = $products->where('status', 'active')->orderBy($sortField, $sortBy)->paginate(5);
         // dd($products);
 
         return view('frontend.shop.index', compact('products', 'sorting'));

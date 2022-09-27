@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Brian2694\Toastr\Facades\Toastr;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $product = Product::findOrFail($request->input('id'));
-        Cart::setGlobalTax(2.5);
+        Cart::setGlobalTax(11);
         
         $quantity = $request->input('quantity');
 
@@ -56,6 +57,8 @@ class CartController extends Controller
             $quantity,
             $product->price,
         );
+
+        Toastr::success('Successfully Added to Cart!', 'Success', ["progressBar" => true, "positionClass" => "toast-bottom-right",]);
 
         return redirect()->back()->with([
             'message' => 'Successfully Added to Cart',

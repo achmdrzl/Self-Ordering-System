@@ -15,9 +15,17 @@ class Invoice extends Model
         'updated_at'
     ];
 
+    protected $casts = [
+        'order_date' => 'string'
+    ];
+
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'invoice_id');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

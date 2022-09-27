@@ -12,7 +12,7 @@ class ProductController extends Controller
         $related_product = Product::whereHas('category', function($query) use ($product){
             $query->whereId($product->category_id);
         })
-        ->where('id', '<>', $product->id)
+        ->where('id', '<>', $product->id)->where('status', 'active')
         ->inRandomOrder()
         ->take(4)
         ->get(['id', 'name_product', 'slug', 'price']);

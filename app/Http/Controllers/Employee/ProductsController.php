@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\ImgUploading;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -47,6 +48,8 @@ class ProductsController extends Controller
         foreach ($request->input('gallery', []) as $file) {
             $products->addMedia(storage_path('tmp/uploads/') . $file)->toMediaCollection('gallery');
         }
+
+        Toastr::success('Product Created Successfully!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('products.index')->with([
             'message' => 'Product Created Successfully',
@@ -89,21 +92,24 @@ class ProductsController extends Controller
     {
         $product->update($request->validated());
 
-        if(count($product->gallery) > 0){
-            foreach($product->gallery as $media){
-                if(!in_array($media->file_name, $request->input('gallery'))){
+        if (count($product->gallery) > 0) {
+            foreach ($product->gallery as $media) {
+                if (!in_array($media->file_name, $request->input('gallery'))) {
                     $media->delete();
                 }
             }
         }
-    
+
         $media = $product->gallery->pluck('file_name')->toArray();
 
-        foreach($request->input('gallery', []) as $file){
-            if(count($media) === 0 || !in_array($file, $media)){
-                $product->addMedia(storage_path('tmp/uploads/'). $file)->toMediaCollection('gallery');
+        foreach ($request->input('gallery', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $product->addMedia(storage_path('tmp/uploads/') . $file)->toMediaCollection('gallery');
             }
         }
+
+        Toastr::info('Product Updated Successfully!', 'Success', ["progressBar" => true,]);
+
         return redirect()->route('products.index')->with([
             'message' => 'Product Updated Successfully',
             'type' => 'success'
@@ -118,11 +124,17 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        if ($product->status == 'unactive') {
+            $product->update([
+                'status' => 'active'
+            ]);
+            return response()->json(['status' => 'Product is Active!']);
+        } else {
+            $product->update([
+                'status' => 'unactive'
+            ]);
 
-        return redirect()->route('products.index')->with([
-            'message' => 'Product Deleted Successfully',
-            'type' => 'danger'
-        ]);
+            return response()->json(['status' => 'Product is Unactive!']);
+        }
     }
 }
