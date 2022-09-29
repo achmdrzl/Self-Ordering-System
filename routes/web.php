@@ -100,9 +100,9 @@ Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
 });
 
 
-Route::get('/cekRelasi', function(){
-    return OrderProduct::with('product')->get();
-});
+// Route::get('/cekRelasi', function(){
+//     return Order::with(['orderProduct.product'])->get();
+// });
 
 // Route::get('/set/{no_table}', function(Request $request, $no_table){
 //     $request->session()->put('no_table', $no_table);

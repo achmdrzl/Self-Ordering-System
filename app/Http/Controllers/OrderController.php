@@ -17,7 +17,13 @@ class OrderController extends Controller
     public function index()
     {
         $carts = Cart::content();
-        return view('frontend.order.checkout', compact('carts'));
+
+        $no_table = request()->session()->get('no_table');
+
+        $datas = Order::where('table_id', $no_table)->get();
+        $data = $datas->whereNotIn('status_order', 'Finished')->count();
+
+        return view('frontend.order.checkout', compact('carts', 'data'));
     }
 
     /**
@@ -43,16 +49,7 @@ class OrderController extends Controller
 
         Order::createOrder($payMethod);
 
-        $no_table = request()->session()->get('no_table');
-        // $orders = Order::where('table_id', $no_table)->orWhere('status_order', 'Pending')->get();
-        // $orders = Order::whereNotIn('status_order', 'Finished')->orWhere('table_id', $no_table)->get();
-
-        $orders = Order::where('table_id', $no_table)
-        ->when('status_order', function ($query) {
-            return $query->where('status_order', 'Waiting')->orWhere('status_order', 'Cooked');
-        })->get();
-
-        return view('frontend.order.orderSuccess', compact('orders'));
+        return redirect()->route('status.order');
     }
 
     /**

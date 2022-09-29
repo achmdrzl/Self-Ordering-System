@@ -20,9 +20,8 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                {{-- <p class="card-title">Detail Order : <span>{{$orders->table_id}}</span></p> --}}
+                                                <p class="card-title">Detail Order :  Table <span>{{$orders->table_id}}</span></p>
                                                 <table class="table table-hover mb-4">
-                                                    {{-- @foreach ($orders as $order) --}}
                                                     <tr>
                                                         <th>No Table</th>
                                                         <th colspan="6">{{ $orders->table_id }}</th>
@@ -44,12 +43,12 @@
                                                     <tr>
                                                         <th>Status Order</th>
                                                         <td colspan="6">
-                                                            @if ($orders->status_order === 'Cooked')
-                                                                <div class="badge badge-warning" style="font-weight: bold">
+                                                            @if ($orders->status_order === 'Waiting')
+                                                                <div class="badge badge-danger" style="font-weight: bold">
                                                                     {{ $orders->status_order }}
                                                                 </div>
-                                                            @elseif($orders->status_order === 'Waiting')
-                                                                <div class="badge badge-danger" style="font-weight: bold">
+                                                            @elseif($orders->status_order === 'Cooked')
+                                                                <div class="badge badge-warning" style="font-weight: bold">
                                                                     {{ $orders->status_order }}
                                                                 </div>
                                                             @elseif($orders->status_order === 'On the Way')
@@ -57,10 +56,12 @@
                                                                     {{ $orders->status_order }}
                                                                 </div>
                                                             @else
+                                                            <div class="badge badge-success" style="font-weight: bold">
+                                                                    {{ $orders->status_order }}
+                                                                </div>
                                                             @endif
                                                         </td>
                                                     </tr>
-                                                    {{-- @endforeach --}}
                                                 </table>
                                                 <table class="table mb-4 display expandable-table table-responsive-md">
                                                     <thead>
@@ -70,11 +71,10 @@
                                                         <th>Total</th>
                                                     </thead>
                                                     <tbody>
-
-                                                        @foreach ($pro as $order)
+                                                        @foreach ($orders->orderProduct as $order)
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $order->products->name_product }}</td>
+                                                                <td>{{ $order->product->name_product }}</td>
                                                                 <td>{{ $order->quantity }}</td>
                                                                 <td>Rp. {{ number_format($order->total_price) }}</td>
                                                             </tr>
@@ -87,7 +87,7 @@
                                                     @if ($orders->status_order === 'Waiting')
                                                         <a href="{{ route('update.status.order', $orders->id) }}"
                                                             class="btn btn-danger btn-md">Cooked</a>
-                                                    @else
+                                                    @elseif($orders->status_order === 'Cooked')
                                                      <a href="{{ route('update.status.order', $orders->id) }}"
                                                             class="btn btn-danger btn-md">On the Way</a>
                                                     @endif

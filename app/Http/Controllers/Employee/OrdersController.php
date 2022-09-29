@@ -54,7 +54,7 @@ class OrdersController extends Controller
      */
     public function show(Order $orders, $id)
     {
-        $orders = Order::where('id', $id)->first();
+        $orders = Order::with(['orderProduct.product'])->where('id', $id)->first();
         // Payment Detail
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
@@ -64,6 +64,10 @@ class OrdersController extends Controller
         \Midtrans\Config::$isSanitized = true;
         // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
+
+        // Sum Total if repeat order has found
+        $data = Order::where('table_id', $orders->table_id)->get();
+        $cek = $data->whereNotIn('status_order', 'Finished')->sum('total');
 
         if ($orders->invoice->status == 'Settlement' || $orders->invoice->status == 'settlement') {
             $params = array(
@@ -83,7 +87,7 @@ class OrdersController extends Controller
                 'transaction_details' => array(
                     'order_id' => $orders->orderCode,
                     // 'order_id' => rand(),
-                    'gross_amount' => intval($orders->total),
+                    'gross_amount' => intval($cek),
                 ),
                 'customer_details' => array(
                     'first_name' => "Table " . $orders->table_id,
@@ -96,14 +100,7 @@ class OrdersController extends Controller
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        // get data order detail
-        $orderProducts = OrderProduct::where('order_id', $id)->get();
-        // dd($orderProducts);
-        foreach ($orderProducts as $item) {
-            $items = Product::find($item->product_id);
-        }
-
-        return view('employee.manager.order.show', compact('orders', 'orderProducts', 'snapToken'));
+        return view('employee.manager.order.show', compact('orders', 'snapToken'));
     }
 
     /**
@@ -149,7 +146,7 @@ class OrdersController extends Controller
 
     public function printPDF($id)
     {
-        $orders = Order::with(['orderProduct', 'products', 'invoice'])->where('id', $id)->first();
+        $orders = Order::with(['orderProduct.product', 'invoice'])->where('id', $id)->first();
 
         $customPaper = array(0, 0, 720, 1440);
         $pdf = FacadePdf::loadView('employee.cashier.bill.printPDF', compact('orders'))->setPaper($customPaper, 'portrait');

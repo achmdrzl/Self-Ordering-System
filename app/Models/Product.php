@@ -48,10 +48,10 @@ class Product extends Model implements HasMedia, Buyable
         return $this->media('photo');
     }
 
-    public function orderProduct()
-    {
-        return $this->belongsTo(OrderProduct::class);
-    }
+    // public function orderProduct()
+    // {
+    //     return $this->belongsTo(OrderProduct::class);
+    // }
 
     // public function order()
     // {

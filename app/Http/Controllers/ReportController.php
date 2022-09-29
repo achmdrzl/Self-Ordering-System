@@ -33,6 +33,7 @@ class ReportController extends Controller
             $invoices = Invoice::all();
             $total = Invoice::sum('total');
         }
+        
 
         $customPaper = array(0, 0, 720, 1440);
         $pdf = FacadePdf::loadView('employee.manager.report.reportSalesPDF', compact('invoices', 'total', 'start', 'end'))->setPaper($customPaper, 'portrait');

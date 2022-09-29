@@ -45,6 +45,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $product = Product::findOrFail($request->input('id'));
+
         Cart::setGlobalTax(11);
         
         $quantity = $request->input('quantity');

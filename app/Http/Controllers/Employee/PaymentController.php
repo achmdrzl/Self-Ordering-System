@@ -68,24 +68,6 @@ class PaymentController extends Controller
             ]);
         }
 
-        Toastr::success('Payment Success! Change Money Rp. $total', 'Success', [
-            "closeButton" => true,
-            "debug" => false,
-            "newestOnTop" => true,
-            "progressBar" => true,
-            "positionClass" => "toast-top-full-width",
-            "preventDuplicates" => false,
-            "onclick" => null,
-            "showDuration" => "10000",
-            "hideDuration" => "10000",
-            "timeOut" => "50000",
-            "extendedTimeOut" => "10000",
-            "showEasing" => "swing",
-            "hideEasing" => "linear",
-            "showMethod" => "fadeIn",
-            "hideMethod" => "fadeOut"
-        ]);
-
         return redirect()->back();
     }
 }
