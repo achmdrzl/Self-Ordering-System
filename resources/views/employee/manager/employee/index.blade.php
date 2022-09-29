@@ -35,10 +35,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
+                                                    <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Roles</th>
-                                                    <th>Create At</th>
-                                                    <th>Update At</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -48,18 +47,17 @@
                                                         {{-- for sweetalert --}}
                                                         <input type="hidden" class="delete_id" value="{{ $user->id }}">
                                                         <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $user->name }}</td>
                                                         <td>
                                                             <div class="badge badge-dark">{{ $user->email }}</div>
                                                         </td>
                                                         <td>
                                                             @if (!empty($user->getRoleNames()))
                                                                 @foreach ($user->getRoleNames() as $v)
-                                                                    <div class="badge badge-info">{{ $v }}</div>
+                                                                    <div class="badge badge-info">{{ strtoupper($v) }}</div>
                                                                 @endforeach
                                                             @endif
                                                         </td>
-                                                        <td>{{ $user->created_at }}</td>
-                                                        <td>{{ $user->updated_at }}</td>
                                                         <td>
                                                             <a href="{{ route('employeeData.edit', $user->id) }}"
                                                                 class="btn btn-primary btn-md"

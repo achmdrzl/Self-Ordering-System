@@ -28,9 +28,6 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        // $locationData = Location::get('https://' . $request->ip()); // https or http according to your necessary.
-        // return view('welcome', compact('locationData'));
-
         // API Location
         $location = Location::get();
 
@@ -50,7 +47,7 @@ class DashboardController extends Controller
             ->selectRaw('*, sum(total) as total')
             ->orderByRaw('order_date ASC')
             ->first();
-        // dd($totalThisDay);
+
         // Total Income
         $grandTotal = Invoice::sum('total');
 
@@ -80,55 +77,14 @@ class DashboardController extends Controller
             ]
         ]);
 
-        // $test = User::create([
-        //     'email' => 'abc@gmail.com',
-        //     'name' => 'abc',
-        //     'email_verified_at' => now(),
-        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        //     'remember_token' => Str::random(10),
-        // ]);
-
-        // $test->assignRole('chef');
-
         return view('employee.dashboard', compact('location', 'orders', 'totalThisDay', 'grandTotal', 'table', 'tableFree', 'totalSales', 'month', 'reportChart', 'orderThisDay'));
     }
 
     public function show(Request $request, $id)
     {
         $orders = Order::with(['orderProduct.product'])->where('id', $id)->first();
-        $pro = OrderProduct::with('product')->where('order_id', $orders->id)->get();
-        // $orderProduct = OrderProduct::where('order_id', $orders->id)->get();
-        // foreach($orders as $order){
-        //     // $item = OrderProduct::with(['products'])->where('id', $order->id)->first();
-        // }
-        // $orderProducts = OrderProduct::with(['products', 'order'])->where('order_id', $id)->get();
-        // $orderProducts = OrderProduct::with(['products', 'order'])->where('order_id', $id)->get();
-        // $item = Order::where('id', $id)->get();
 
-        // foreach ($orders as $row) {
-        //     $orderProducts = OrderProduct::where('order_id', $row->id)->get();
-        // }
-
-        // foreach ($orders as $item) {
-        //     $product = OrderProduct::where('order_id', $item->id)->get();
-        //     foreach ($product as $data) {
-        //         // dd($data->product_id);
-        //         foreach ($data->product_id as $x) {
-        //             $detail = Product::where('id', $x)->get();
-        //         }
-        //     }
-        // }
-        // dd($product);
-
-        // foreach ($orders->orderProduct as $item) {
-        //     $data = DB::table('products')
-        //         ->select('*')
-        //         ->where('id', $item->product_id)
-        //         ->get();
-        //     // dd($data);
-        // }
-
-        return view('employee.chef.show', compact('orders', 'pro'));
+        return view('employee.chef.show', compact('orders'));
     }
 
     public function update_status(Request $request, $id)
@@ -146,6 +102,6 @@ class DashboardController extends Controller
             }
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->back();
     }
 }

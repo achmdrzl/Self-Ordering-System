@@ -57,6 +57,7 @@
         .invoice-box table tr.details td {
             padding-bottom: 10px;
         }
+
         .invoice-box table tr.total td:nth-child(2) {
             border-top: 2px solid #eee;
             font-weight: bold;
@@ -139,45 +140,51 @@
             </tr>
 
             <tr class="heading">
-                <td>Quantity Total</td>
-                <td>Subtotal</td>
+                <td>Product</td>
+                <td>Harga</td>
             </tr>
 
             @foreach ($orders->orderProduct as $row)
                 <tr class="item">
                     <td>
-                        <strong>{{ $row->quantity }}</strong> x ( Rp.
-                        {{ number_format($row->total_price / $row->quantity) }} )
+                        {{ $row->product->name_product }} <strong>(x {{ $row->quantity }})</strong>
                     </td>
                     <td>Rp. {{ number_format($row->total_price) }}</td>
                 </tr>
             @endforeach
-            <tr class="total"><td></td></tr>
-            <tr class="total"><td></td></tr>
-            <tr>
+            <tr class="total">
+                <td></td>
+            </tr>
+            <tr class="total">
+                <td></td>
+            </tr>
+            <tr class="total">
                 <td></td>
                 <td>
-                    Pajak: Rp. {{ number_format($orders->total - $orders->total + $orders->total * 0.025) }}
+                    Pajak (11%)
                 </td>
             </tr>
             <tr class="total">
                 <td></td>
                 <td>
-                    Total: Rp. {{ number_format($orders->total) }}
+                    Total Harga: Rp. {{ number_format($orders->total) }}
                 </td>
             </tr>
-            <tr class="total">
-                <td></td>
-                <td>
-                    Pembayaran: Rp. {{ number_format($orders->invoice->payTotal) }}
-                </td>
-            </tr>
-            <tr class="total">
-                <td></td>
-                <td>
-                    Kembalian: Rp. {{ number_format($orders->invoice->PayBack) }}
-                </td>
-            </tr>
+            @if ($orders->invoice->payMethod === 'cashless')
+            @else
+                <tr class="total">
+                    <td></td>
+                    <td>
+                        Total Pembayaran: Rp. {{ number_format($orders->invoice->payTotal) }}
+                    </td>
+                </tr>
+                <tr class="total">
+                    <td></td>
+                    <td>
+                        Total Kembali: Rp. {{ number_format($orders->invoice->PayBack) }}
+                    </td>
+                </tr>
+            @endif
             <tr>
                 <td><strong>Detail Pembayaran</strong></td>
                 <td></td>
@@ -190,8 +197,8 @@
                 <td>Tanggal: {{ $orders->invoice->order_date }}</td>
                 <td></td>
             </tr>
-
         </table>
+
     </div>
 </body>
 

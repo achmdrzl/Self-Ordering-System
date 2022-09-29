@@ -84,18 +84,17 @@
                                                     </td>
                                                     <td>{{ date('d F Y', strtotime($order->invoice->order_date)) }}</td>
                                                     <td>
-                                                        @if ($order->invoice->status == 'settlement' || $order->invoice->status == 'Settlement')
-                                                           
+                                                        {{-- @if ($order->invoice->status == 'settlement' || $order->invoice->status == 'Settlement')
                                                         @else
                                                             <a href="{{ route('orders.show', $order->id) }}"
                                                                 class="btn btn-primary btn-md text-white"
                                                                 style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
                                                                     class="ti-money"></i> Pay!</a>
-                                                        @endif
+                                                        @endif --}}
                                                         <a href="{{ route('orders.show', $order->id) }}"
-                                                                class="btn btn-info btn-md text-white"
-                                                                style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                                                    class="ti-eye"></i> Detail</a>
+                                                            class="btn btn-info btn-md text-white"
+                                                            style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
+                                                                class="ti-eye"></i> Detail</a>
 
                                                         @if (Auth::user()->HasRole('manager'))
                                                             <form onclick="return confirm('are you sure?')"

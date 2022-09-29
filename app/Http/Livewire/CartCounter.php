@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Customer;
 use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
@@ -14,21 +15,22 @@ class CartCounter extends Component
     public function render()
     {
         $cart_count = Cart::content()->count();
-        $no_table = request()->session()->get('no_table');
 
         // get no table & status order in order to count it.
         $table =
             Order::where(function ($query) {
                 $no_table = request()->session()->get('no_table');
-                $query->where('table_id', $no_table)->orWhere('status_order', 'Waiting');
-            })->where(function ($query) {
+                $customer = Customer::where('no_table', $no_table)->first();
+                $query->where('table_id', $customer->id)->where('status_order', 'Waiting');
+            })->orWhere(function ($query) {
                 $no_table = request()->session()->get('no_table');
-                $query->where('table_id', $no_table)->orWhere('status_order', 'Cooked');
-            })->where(function ($query) {
+                $customer = Customer::where('no_table', $no_table)->first();
+                $query->where('table_id', $customer->id)->where('status_order', 'Cooked');
+            })->orWhere(function ($query) {
                 $no_table = request()->session()->get('no_table');
-                $query->where('table_id', $no_table)->orWhere('status_order', 'On the Way');
+                $customer = Customer::where('no_table', $no_table)->first();
+                $query->where('table_id', $customer->id)->where('status_order', 'On the Way');
             })->count();
-        
 
         return view('livewire.cart-counter', compact('cart_count', 'table'));
     }

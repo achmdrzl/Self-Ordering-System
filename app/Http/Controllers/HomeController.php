@@ -35,11 +35,15 @@ class HomeController extends Controller
 
         $no_table = request()->session()->get('no_table');
 
-        $table = Customer::findOrFail($no_table);
+        $table = Customer::where('no_table', $no_table)->first();
 
-        if ($table->status === "Check-In") {
-            return abort(403, 'Unauthorized action.');
+        if ($table) {
+            if ($table->status === "Check-In") {
+                return abort(403, 'Unauthorized action.');
+            }
+            return view("frontend.welcome");
+        }else{
+            return abort(404, 'Not Found');
         }
-        return view("frontend.welcome");
     }
 }
