@@ -1,10 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>{{ date('Y/m/d') }}</title>
-
     <style>
         .invoice-box {
             max-width: 800px;
@@ -98,66 +95,59 @@
 </head>
 
 <body>
-
     <div class="invoice-box">
-        @if ($total == 0)
-            <div style="text-align:center; justify-content: center;"></div>
-            <strong>Tidak Ada Data Pada Periode Waktu</strong><br>
-            {{ date('d F Y', strtotime($start)) }} s/d {{ date('d F Y', strtotime($end)) }} <br>
-        @else
-            <table cellpadding="0" cellspacing="0">
-                <tr class="top">
-                    <td colspan="2">
-                        <table>
-                            <tr>
-                                <td class="title">
-                                    <img src="https://daengweb.id/front/dw-theme/images/logo-head.png" width="150px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+        <table style="width: 100%;">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="https://daengweb.id/front/dw-theme/images/logo-head.png" width="150px">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 
-                <tr class="information">
-                    <td colspan="2">
-                        <table>
-                            <tr>
-                                <td>
-                                    <strong>Periode Waktu</strong><br>
-                                    {{ date('d F Y', strtotime($start)) }} s/d {{ date('d F Y', strtotime($end)) }} <br>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr class="heading">
-                    <td>Order Date</td>
-                    <td>Total</td>
-                </tr>
-
-                @foreach ($invoices as $row)
-                    <tr class="item">
-                        <td>
-                            <strong>{{ date('d F Y', strtotime($row->order_date)) }}</strong>
-                        </td>
-                        <td>Rp. {{ number_format($row->total) }}</td>
-                    </tr>
-                @endforeach
-                <tr class="total">
-                    <td></td>
-                </tr>
-                <tr class="total">
-                    <td></td>
-                </tr>
-
-                <tr class="total">
-                    <td></td>
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Periode Waktu</strong><br>
+                                {{ date('d F Y', strtotime($start)) }} s/d {{ date('d F Y', strtotime($end)) }} <br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>Order Date</td>
+                <td>Payment Method</td>
+                <td>Total</td>
+                <td>Total Payment</td>
+                <td>Saldo</td>
+            </tr>
+            @foreach ($invoices as $row)
+                <tr class="item">
                     <td>
-                        Grand Total: Rp. {{ number_format($total) }}
+                        <strong>{{ $row->order_date }}</strong>
                     </td>
+                    <td>{{ strtoupper($row->payMethod) }}</td>
+                    <td>Rp. {{ number_format($row->total) }}</td>
+                    <td>Rp. {{ $row->payTotal == 0 ? '0.00' : number_format($row->payTotal) }}</td>
+                    <td>Rp. {{ $row->PayBack == 0 ? '0.00' : number_format($row->PayBack) }}</td>
                 </tr>
-            </table>
-        @endif
+            @endforeach
+
+            <tr class="heading">
+                <td></td>
+                <td></td>
+                <td>Rp. {{ number_format($total) }}</td>
+                <td>Rp. {{ $payTotal == 0 ? '0.00' : number_format($payTotal) }}</td>
+                <td>Rp. {{ $payBack == 0 ? '0.00' : number_format($payBack) }}</td>
+            </tr>
+        </table>
     </div>
 </body>
 

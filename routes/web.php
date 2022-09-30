@@ -14,14 +14,8 @@ use App\Http\Controllers\Employee\ProductsController;
 use App\Http\Controllers\Employee\TablesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ShopController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\CategoryList;
-use App\Models\Customer;
-use App\Models\detailOrder;
-use App\Models\Order;
-use App\Models\OrderProduct;
-use App\Models\Product;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,29 +30,34 @@ use Illuminate\Http\Request;
 
 // user controller
 Route::get('/set/{no_table}', HomeController::class . '@welcomePage');
+Route::post('/set/{no_table}', HomeController::class . '@welcomePage');
 
-Route::get('/', HomeController::class . '@index')->name('homepage');
-Route::get('/shop/{slug}', ShopController::class . '@index')->name('shop.index');
+Route::group(['middleware' => ['table']], function(){
 
-// Cart Collection
-Route::resource('cart', CartController::class);
+    Route::get('/home', HomeController::class . '@index')->name('homepage');
+    Route::get('/shop/{slug}', ShopController::class . '@index')->name('shop.index');
+    
+    // Cart Collection
+    Route::resource('cart', CartController::class);
+    
+    // Product Show
+    Route::get('/product/{product:slug}', ProductController::class . '@show')->name('product.show');
+    
+    // Order Flow
+    Route::resource('order', OrderController::class);
+    Route::get('/status_order', CheckoutController::class . '@show')->name('status.order');
+    
+    // Checkout
+    Route::get('/checkout', CheckoutController::class . '@index')->name('checkout.index');
+    Route::get('/success', CheckoutController::class . '@show')->name('checkout.show');
+    // Route::post('/placeOrder', OrderController::class . '@finished')->name('place.order');
+    
+    // React Route
+    Route::get('/categories', HomeController::class . '@getCategories');
+    Route::get('/sorting', ShopController::class . '@sortingItems');
+    Route::get('/customers', TablesController::class . '@getTables');
 
-// Product Show
-Route::get('/product/{product:slug}', ProductController::class . '@show')->name('product.show');
-
-// Order Flow
-Route::resource('order', OrderController::class);
-Route::get('/status_order', CheckoutController::class . '@show')->name('status.order');
-
-// Checkout
-Route::get('/checkout', CheckoutController::class . '@index')->name('checkout.index');
-Route::get('/success', CheckoutController::class . '@show')->name('checkout.show');
-// Route::post('/placeOrder', OrderController::class . '@finished')->name('place.order');
-
-// React Route
-Route::get('/categories', HomeController::class . '@getCategories');
-Route::get('/sorting', ShopController::class . '@sortingItems');
-Route::get('/customers', TablesController::class . '@getTables');
+});
 
 // employee controller
 Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
@@ -103,6 +102,10 @@ Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
 // Route::get('/cekRelasi', function(){
 //     return Order::with(['orderProduct.product'])->get();
 // });
+
+Route::get('/', function(){
+    return view('frontend.scanPage');
+});
 
 // Route::get('/set/{no_table}', function(Request $request, $no_table){
 //     $request->session()->put('no_table', $no_table);

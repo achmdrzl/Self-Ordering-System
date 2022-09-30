@@ -47,13 +47,13 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="name_product">Password</label>
-                                                        <input type="text" class="form-control" name="password"
+                                                        <input type="password" class="form-control" name="password"
                                                             id="password" placeholder="Input Password"
                                                             value="{{ old('password') }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="name_product">Confirm Password</label>
-                                                        <input type="text" class="form-control" name="confirm-password"
+                                                        <input type="password" class="form-control" name="confirm-password"
                                                             id="password_confirmation" placeholder="Input password_confirmation"
                                                             value="{{ old('password_confirmation') }}">
                                                     </div>

@@ -27,7 +27,7 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Create product</p>
+                                                <p class="card-title">Edit Employee</p>
                                                 <p class="card-description">
                                                     Complete the following form!
                                                 </p>
