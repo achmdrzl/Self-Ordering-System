@@ -26,8 +26,7 @@ class EmployeeDataController extends Controller
      */
     public function index(EmployeeDataTable $dataTable)
     {
-        // return $dataTable->render('employee.manager.employeeData');
-
+        
         $users = User::all();
 
         $roles = Role::all();
@@ -96,7 +95,6 @@ class EmployeeDataController extends Controller
             'message' => 'User Created Successfully',
             'type' => 'success', 
         ]);
-
     }
 
     /**
@@ -171,10 +169,7 @@ class EmployeeDataController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        // return redirect()->route('employeeData.index')->with([
-        //     'message' => 'User Deleted Successfully',
-        //     'type' => 'danger',
-        // ]);
+
         Toastr::info('User Updated Successfully!', 'Success', ["progressBar" => true,]);
 
         return response()->json(['status' => 'User Deleted Successfully!']);

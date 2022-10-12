@@ -38,6 +38,5 @@ class MidtransController extends Controller
         return $invoice->update([
             'status' => $data->transaction_status
         ]);
-
     }
 }

@@ -41,10 +41,11 @@
             {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
             <script>
+                // Tables Archive
                 window.addEventListener('show-delete-confirm', event => {
                     swal({
                         title: "Apakah anda yakin?",
-                        text: "Setelah dihapus, Anda tidak dapat memulihkan Data ini lagi!",
+                        text: "Setelah dinon-Aktifkan, Pelanggan tidak dapat Memesan Melalui Meja Ini!",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -52,7 +53,7 @@
                         if (willDelete) {
                             Livewire.emit('deleteConfirmed')
                         } else {
-                            swal("Cancel!", "Undelete Successfully!", "error");
+                            swal("Cancel!", "Command Successfully!", "error");
 
                         }
                     })
@@ -60,6 +61,28 @@
 
                 window.addEventListener('tableDeleted', event => {
                     swal("Success", "Table Deleted Successfully", "success");
+                })
+
+                // Tables Show
+                window.addEventListener('show-table-confirm', event => {
+                    swal({
+                        title: "Apakah anda yakin?",
+                        text: "Setelah di Aktifkan, Pelanggan dapat kembali Memesan Melalui Meja Ini!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            Livewire.emit('showConfirmed')
+                        } else {
+                            swal("Cancel!", "Command Successfully!", "error");
+
+                        }
+                    })
+                })
+
+                window.addEventListener('tableShowed', event => {
+                    swal("Success", "Table Active Successfully", "success");
                 })
             </script>
         @endpush

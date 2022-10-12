@@ -129,6 +129,7 @@ class ProductsController extends Controller
                 'status' => 'active'
             ]);
             return response()->json(['status' => 'Product is Active!']);
+            
         } else {
             $product->update([
                 'status' => 'unactive'

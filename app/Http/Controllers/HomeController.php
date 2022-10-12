@@ -39,19 +39,11 @@ class HomeController extends Controller
 
         if ($table) {
             if ($table->status === "Check-In") {
-                return abort(403, 'Unauthorized action.');
+                return view('frontend.error403');
             }
             return redirect()->route('homepage');
         } else {
-            return abort(404, 'Not Found');
-        }
-    }
-
-    public function checkTable(Request $request)
-    {
-        $result = 0;
-        if($request->data){
-
+            return view('frontend.error404');
         }
     }
 }

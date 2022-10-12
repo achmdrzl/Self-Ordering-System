@@ -192,14 +192,24 @@
     <script>
         $(document).ready(function() {
             $('#table-id').DataTable({
-                "columnDefs": [{
-                    "rowHeight": 'auto',
-                    "targets": '_all',
-                    "createdCell": function(tr, td, cellData, rowData, row, col) {
-                        $(tr).css('padding', '15px')
-                        $(td).css('height', '50px')
-                    }
-                }],
+                // "columnDefs": [{
+                //     "rowHeight": 'auto',
+                //     "targets": '_all',
+                //     "createdCell": function(tr, td, cellData, rowData, row, col) {
+                //         $(tr).css('padding', '15px')
+                //         $(td).css('height', '50px')
+                //     },
+                // }],
+            });
+        });
+        $(document).ready(function() {
+            $('#table-od').DataTable({
+                "order": [['6','desc']],
+            });
+        });
+        $(document).ready(function() {
+            $('#table-ud').DataTable({
+                "order": [['0','desc']],
             });
         });
         // document.body.style.transform = 'scale(1)';

@@ -19,9 +19,9 @@ class Invoice extends Model
         'order_date' => 'string'
     ];
 
-    public function order()
+    public function orders()
     {
-        return $this->belongsTo(Order::class, 'invoice_id');
+        return $this->hasOne(Order::class, 'invoice_id');
     }
 
     public function customer()

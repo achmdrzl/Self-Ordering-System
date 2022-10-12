@@ -38,14 +38,14 @@ class DashboardController extends Controller
         $orderThisDay =
             Invoice::groupBy('order_date')
             ->selectRaw('*, count(total) as total')
-            ->orderByRaw('order_date ASC')
+            ->orderByRaw('order_date DESC')
             ->first();
 
         // Amount Income this Day
         $totalThisDay =
             Invoice::groupBy('order_date')
             ->selectRaw('*, sum(total) as total')
-            ->orderByRaw('order_date ASC')
+            ->orderByRaw('order_date DESC')
             ->first();
 
         // Total Income
@@ -55,7 +55,7 @@ class DashboardController extends Controller
         $table = Customer::count();
 
         // Total Table Where Condition is "Free"
-        $free = Customer::where('status', 'Check-In')->get();
+        $free = Customer::where('status', 'Free')->get();
         $tableFree = $free->count();
 
         // Grafik Sales

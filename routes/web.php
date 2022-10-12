@@ -14,6 +14,7 @@ use App\Http\Controllers\Employee\ProductsController;
 use App\Http\Controllers\Employee\TablesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ShopController;
+use App\Models\Invoice;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Scanning
+Route::get('/', function () {
+    return view('frontend.scanPage');
+});
 
 // user controller
 Route::get('/set/{no_table}', HomeController::class . '@welcomePage');
@@ -58,6 +64,7 @@ Route::group(['middleware' => ['table']], function(){
     Route::get('/customers', TablesController::class . '@getTables');
 
 });
+
 
 // employee controller
 Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
@@ -99,12 +106,8 @@ Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
 });
 
 
-// Route::get('/cekRelasi', function(){
-//     return Order::with(['orderProduct.product'])->get();
-// });
-
-Route::get('/', function(){
-    return view('frontend.scanPage');
+Route::get('/cekRelasi', function(){
+    return Invoice::with(['orders'])->get();
 });
 
 // Route::get('/set/{no_table}', function(Request $request, $no_table){

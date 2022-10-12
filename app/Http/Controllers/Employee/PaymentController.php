@@ -17,21 +17,24 @@ class PaymentController extends Controller
         $data = json_decode($request->get('result'));
         $invoice = Invoice::where('id', $id)->first();
 
+        // update invoice
         $invoice->update([
             'status' => $data->transaction_status,
         ]);
 
+        // get data order
         $orders = Order::where(
             'id',
             $id
         )->get();
         
         foreach ($orders as $order) {
-
+            // update data customer
             Customer::where('id', $order->table_id)->update([
                 'status' => 'Free'
             ]);
-
+            
+            // update data order
             Order::where('id', $id)->update([
                 'status_order' => 'Finished'
             ]);
@@ -49,6 +52,7 @@ class PaymentController extends Controller
         foreach ($orders as $order) {
             $invoice = Invoice::where('id', $order->invoice_id)->get();
             foreach ($invoice as $item) {
+                
                 $total = $payTotal - $item->total;
 
                 Invoice::where('id', $order->invoice_id)

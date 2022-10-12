@@ -10,10 +10,13 @@
         <tbody>
             @foreach ($customers as $customer)
                 <tr>
-                    <th>{{ $customer->no_table }}</th>
+                    <th><div class="badge badge-dark">{{ $customer->no_table }}</div></th>
                     <td>
                         @if ($customer->status === 'Free')
                             <div class="badge badge-success">{{ $customer->status }}
+                            </div>
+                        @elseif($customer->status === 'Unactive')
+                            <div class="badge badge-danger">{{ $customer->status }}
                             </div>
                         @else
                             <div class="badge badge-warning">{{ $customer->status }}
@@ -26,12 +29,19 @@
                                 style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
                                     class="ti-printer"></i> Print</a>
                             @if (Auth::user()->hasRole('manager'))
-                            <a href="{{ route('tables.edit', $customer->id) }}" class="btn btn-primary btn-md text-white"
-                                style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                    class="ti-pencil"></i> Edit</a>
-                                <button wire:click.prevent="removeItem({{ $customer->id }});" type="submit"
-                                    class="btn btn-danger btn-sm" style="height:40px"><i
-                                        class="ti-trash"></i> Delete</button>
+                                <a href="{{ route('tables.edit', $customer->id) }}"
+                                    class="btn btn-primary btn-md text-white"
+                                    style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
+                                        class="ti-pencil"></i> Edit</a>
+                                @if ($customer->status == 'Unactive')
+                                    <button wire:click.prevent="showItem({{ $customer->id }});" type="submit"
+                                        class="btn btn-success btn-sm" style="height:40px"><i class="ti-cloud-up"></i>
+                                        Show</button>
+                                @else
+                                    <button wire:click.prevent="removeItem({{ $customer->id }});" type="submit"
+                                        class="btn btn-danger btn-sm" style="height:40px"><i class="ti-cloud-down"></i>
+                                        Archive</button>
+                                @endif
                             @endif
                         </div>
                     </td>
