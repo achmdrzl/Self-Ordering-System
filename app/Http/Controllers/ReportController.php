@@ -14,10 +14,10 @@ class ReportController extends Controller
 {
     public function index()
     {
-
         $invoices =
             Invoice::groupBy('order_date')
             ->selectRaw('*, sum(total) as grandtotal')
+            ->orderByRaw('order_date DESC')
             ->get();
 
         return view('employee.manager.report.index', compact('invoices'));
@@ -28,13 +28,13 @@ class ReportController extends Controller
         $start = $request->input('startDate');
         $end = $request->input('endDate');
 
-        if($start AND $end){
+        if ($start and $end) {
             $invoices = Invoice::whereBetween('order_date', [$start, $end])->get();
             $total = Invoice::whereBetween('order_date', [$start, $end])->sum('total');
 
             $payTotal = $invoices->sum('payTotal');
             $payBack = $invoices->sum('PayBack');
-        }else{
+        } else {
             $invoices = Invoice::all();
             $total = Invoice::sum('total');
         }
@@ -43,6 +43,5 @@ class ReportController extends Controller
         $pdf = FacadePdf::loadView('employee.manager.report.reportSalesPDF', compact('invoices', 'total', 'start', 'end', 'payTotal', 'payBack'))->setPaper($customPaper, 'portrait');
 
         return $pdf->download('INVOICE #' . date("Y/m/d") . '.pdf');
-
     }
 }

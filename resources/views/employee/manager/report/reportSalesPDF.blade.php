@@ -102,7 +102,8 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="https://daengweb.id/front/dw-theme/images/logo-head.png" width="150px">
+                                <img src="https://ik.imagekit.io/dxofqajmq/Tugas_Akhir/logo_SZubKxvSW.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665337714536"
+                                    width="150px">
                             </td>
                         </tr>
                     </table>
@@ -123,6 +124,7 @@
             </tr>
             <tr class="heading">
                 <td>Order Date</td>
+                <td align="left">Order Code</td>
                 <td>Payment Method</td>
                 <td>Total</td>
                 <td>Total Payment</td>
@@ -133,9 +135,11 @@
                     <td>
                         <strong>{{ $row->order_date }}</strong>
                     </td>
+                    <td align="left">{{ strtoupper($row->orders->orderCode) }}</td>
                     <td>{{ strtoupper($row->payMethod) }}</td>
                     <td>Rp. {{ number_format($row->total) }}</td>
-                    <td>Rp. {{ $row->payTotal == 0 ? '0.00' : number_format($row->payTotal) }}</td>
+                    <td>Rp. {{ $row->payTotal == 0 ? number_format($row->total) : number_format($row->payTotal) }}
+                    </td>
                     <td>Rp. {{ $row->PayBack == 0 ? '0.00' : number_format($row->PayBack) }}</td>
                 </tr>
             @endforeach
@@ -143,8 +147,9 @@
             <tr class="heading">
                 <td></td>
                 <td></td>
+                <td></td>
                 <td>Rp. {{ number_format($total) }}</td>
-                <td>Rp. {{ $payTotal == 0 ? '0.00' : number_format($payTotal) }}</td>
+                <td>Rp. {{ number_format($total) }}</td>
                 <td>Rp. {{ $payBack == 0 ? '0.00' : number_format($payBack) }}</td>
             </tr>
         </table>

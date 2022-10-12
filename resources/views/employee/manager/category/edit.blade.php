@@ -33,7 +33,6 @@
                                                 </p>
                                                 <form class="forms-sample"
                                                     action="{{ route('category.update', $category->id) }}" method="POST">
-
                                                     @csrf
                                                     @method('put')
                                                     <div class="form-group">

@@ -85,6 +85,7 @@ class Order extends Model
                         'status_order' => 'Waiting'
                     ]);
 
+                    // Insert Order Product
                     $order_products = [];
                     foreach (Cart::content() as $cartData) {
                         $order_products[] = [

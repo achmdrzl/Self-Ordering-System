@@ -21,7 +21,7 @@
                             <p class="card-title">Order Review</p>
                             <div class="row">
                                 <div class="col-12">
-                                    <table id="table-id" cellpadding="5"
+                                    <table id="table-od" cellpadding="5"
                                         class="table expandable-table table-responsive-lg">
                                         <thead>
                                             <tr>
@@ -37,6 +37,8 @@
                                         <tbody>
                                             @foreach ($orders as $order)
                                                 <tr>
+                                                    <input type="hidden" class="delete_id" value="{{ $order->id }}">
+
                                                     <th>
                                                         <div class="badge badge-dark">{{ $order->table_id }}</div>
                                                     </th>
@@ -84,25 +86,18 @@
                                                     </td>
                                                     <td>{{ date('d F Y', strtotime($order->invoice->order_date)) }}</td>
                                                     <td>
-                                                        {{-- @if ($order->invoice->status == 'settlement' || $order->invoice->status == 'Settlement')
-                                                        @else
-                                                            <a href="{{ route('orders.show', $order->id) }}"
-                                                                class="btn btn-primary btn-md text-white"
-                                                                style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                                                    class="ti-money"></i> Pay!</a>
-                                                        @endif --}}
                                                         <a href="{{ route('orders.show', $order->id) }}"
                                                             class="btn btn-info btn-md text-white"
                                                             style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
                                                                 class="ti-eye"></i> Detail</a>
 
                                                         @if (Auth::user()->HasRole('manager'))
-                                                            <form onclick="return confirm('are you sure?')"
-                                                                action="{{ route('orders.destroy', $order->id) }}"
+                                                            <form action="{{ route('orders.destroy', $order->id) }}"
                                                                 method="POST" class="d-inline">
                                                                 @csrf
                                                                 @method('delete')
-                                                                <button type="submit" class="btn btn-danger btn-md"
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-md btnactive"
                                                                     style="height:40px"><i class="ti-trash"></i>
                                                                     Delete</button>
                                                             </form>
@@ -127,4 +122,58 @@
     @push('style-alt')
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    @endpush
+
+    @push('script-alt')
+        <script>
+            $(document).ready(function() {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $('.btnactive').click(function(e) {
+                    e.preventDefault();
+
+                    var deleteid = $(this).closest("tr").find('.delete_id').val();
+
+                    swal({
+                            title: "Apakah anda yakin?",
+                            text: "Setelah dihapus, Data Ini Tidak akan Bisa di Pulihkan Lagi!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+
+                        .then((willDelete) => {
+                            if (willDelete) {
+
+                                var data = {
+                                    "_token": $('input[name=_token]').val(),
+                                    'id': deleteid,
+                                };
+                                $.ajax({
+                                    type: "DELETE",
+                                    url: 'orders/' + deleteid,
+                                    data: data,
+                                    success: function(response) {
+                                        swal(response.status, {
+                                                icon: "success",
+                                            })
+                                            .then((result) => {
+                                                location.reload();
+                                            });
+                                    }
+                                });
+                            } else {
+                                swal("Cancel!", "Perintah dibatalkan!", "error");
+
+                            }
+                        });
+                });
+
+            });
+        </script>
     @endpush

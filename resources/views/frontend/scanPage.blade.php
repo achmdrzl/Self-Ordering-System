@@ -1,6 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Scan Here</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -16,13 +22,14 @@
             border-radius: 0.25rem;
         }
     </style>
-
+    @laravelPWA
+</head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <div class="drop-area">
             {{-- <div id="qr-reader" style="width:500px"></div> --}}
             <div id="qr-reader-results"></div>
-            <div class="card text-center">
+            <div class="card">
                 <div class="card-header">
                     Scan Here
                 </div>
@@ -74,6 +81,5 @@
         html5QrcodeScanner.render(onScanSuccess);
     });
 </script>
-</head>
 
 </html>

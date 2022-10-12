@@ -21,7 +21,8 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('invoice')->latest()->get();
+        $orders = Order::with('invoice')->orderBy('id', 'DESC')->get();
+
         return view('employee.manager.order.index', compact('orders'));
     }
 
@@ -134,14 +135,17 @@ class OrdersController extends Controller
      */
     public function destroy(Order $order)
     {
+
         $order->delete();
-
+        
         $orderProduct = OrderProduct::where('order_id', $order->id)->delete();
+        
+        return response()->json(['status' => 'Data Order Deleted!']);
 
-        return redirect()->route('orders.index')->with([
-            'message' => 'Order Deleted Successfully',
-            'type' => 'danger'
-        ]);
+        // return redirect()->route('orders.index')->with([
+        //     'message' => 'Order Deleted Successfully',
+        //     'type' => 'danger'
+        // ]);
     }
 
     public function printPDF($id)

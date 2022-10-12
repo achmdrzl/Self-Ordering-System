@@ -23,14 +23,12 @@
                                 <div class="col-12">
                                     <a class="btn btn-primary mb-3" data-bs-toggle="modal" href="#exampleModal"
                                         role="button"><i class="ti-printer btn-icon-append"></i> Report Sales</a>
-                                    <table id="table-id" cellpadding="5"
+                                    <table id="table-ud" cellpadding="5"
                                         class="table display expandable-table table-responsive-md table-responsive-sm">
                                         <thead>
                                             <tr>
                                                 <th>Order Date</th>
                                                 <th>Total</th>
-                                                {{-- <th>Status Order</th>
-                                                <th>Status Payment</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -44,40 +42,6 @@
                                                         <div class="badge badge-light" style="font-weight: bold">Rp.
                                                             {{ number_format($item->grandtotal) }}</div>
                                                     </td>
-                                                    {{-- <td>
-                                                        @if ($item->status_order === 'Cooked')
-                                                            <div class="badge badge-warning">
-                                                                {{ $item->status_order }}
-                                                            </div>
-                                                        @elseif($item->status_order === 'Waiting')
-                                                            <div class="badge badge-danger">
-                                                                {{ $item->status_order }}
-                                                            </div>
-                                                        @elseif($item->status_order === 'On the Way')
-                                                            <div class="badge badge-info">
-                                                                {{ $item->status_order }}
-                                                            </div>
-                                                        @else
-                                                            <div class="badge badge-success">
-                                                                {{ $item->status_order }}
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($item->invoice->status === 'Unpaid')
-                                                            <div class="badge badge-danger">
-                                                                {{ ucfirst($item->invoice->status) }}
-                                                            </div>
-                                                        @elseif($item->invoice->status === 'pending')
-                                                            <div class="badge badge-warning">
-                                                                {{ ucfirst($item->invoice->status) }}
-                                                            </div>
-                                                        @else
-                                                            <div class="badge badge-success">
-                                                                {{ ucfirst($item->invoice->status) }}
-                                                            </div>
-                                                        @endif
-                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>

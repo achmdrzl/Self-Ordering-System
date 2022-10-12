@@ -19,7 +19,7 @@ class TablesController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::orderBy('no_table', 'DESC')->get();
 
         return view('employee.manager.tables.index', compact('customers'));
     }
@@ -80,7 +80,6 @@ class TablesController extends Controller
         $table = Customer::find($id);
 
         return view('employee.manager.tables.edit', compact('table'));
-        
     }
 
     /**
@@ -116,12 +115,18 @@ class TablesController extends Controller
      */
     public function destroy(Customer $tables, $id)
     {
-        Customer::destroy($id);
+        if ($tables->status == 'unactive') {
+            $tables->update([
+                'status' => 'Free'
+            ]);
+            return response()->json(['status' => 'Tables is Active!']);
+        } else {
+            $tables->update([
+                'status' => 'unactive'
+            ]);
 
-        return redirect()->route('tables.index')->with([
-            'message' => 'Table Deleted Successfully',
-            'type' => 'danger'
-        ]);
+            return response()->json(['status' => 'Tables is Unactive!']);
+        }
     }
 
     public function printTable($id)

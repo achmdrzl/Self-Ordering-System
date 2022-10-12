@@ -8,29 +8,45 @@ use Livewire\Component;
 class TablesList extends Component
 {
 
-    public $delete_id;
+    public $table_id;
 
     protected $listeners = [
-        'deleteConfirmed' => 'deleteConfirm'
+        'deleteConfirmed' => 'deleteConfirm',
+        'showConfirmed' => 'showConfirm'
     ];
 
     public function render()
     {
-        $customers = Customer::all();
+        $customers = Customer::orderBy('no_table', 'ASC')->get();
+
         return view('livewire.tables-list', compact('customers'));
     }
 
     public function removeItem($id)
     {
-        $this->delete_id = $id;
+        $this->table_id = $id;
         $this->dispatchBrowserEvent('show-delete-confirm');
+    }
+
+    public function showItem($id)
+    {
+        $this->table_id = $id;
+        $this->dispatchBrowserEvent('show-table-confirm');
+    }
+
+    public function showConfirm()
+    {
+        $data = Customer::where('id', $this->table_id)->first();
+        $data->update(['status' => 'Free']);
+
+        $this->dispatchBrowserEvent('tableShowed');
     }
 
     public function deleteConfirm()
     {
-        Customer::destroy($this->delete_id);
+        $data = Customer::where('id', $this->table_id)->first();
+        $data->update(['status' => 'Unactive']);
 
         $this->dispatchBrowserEvent('tableDeleted');
-
     }
 }
