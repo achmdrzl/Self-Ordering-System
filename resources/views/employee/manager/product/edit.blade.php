@@ -66,7 +66,8 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="details">Details Product</label>
-                                                        <textarea class="form-control" name="details" id="details" cols="30" rows="5" placeholder="Details Product">{{ old('details', $product->details) }}</textarea>
+                                                        <textarea class="form-control" name="details" id="details" cols="30" rows="5"
+                                                            placeholder="Details Product">{{ old('details', $product->details) }}</textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="gallery">Upload Images Product</label>

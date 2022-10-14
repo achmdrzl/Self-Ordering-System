@@ -1,5 +1,5 @@
 <div>
-    <table cellpadding="5" class="table display expandable-table table-responsive-sm" style="width:100%;">
+    <table id="table-id" cellpadding="5" class="table display expandable-table table-responsive-sm" style="width:100%;">
         <thead>
             <tr>
                 <th width="300px">No. Tables</th>
@@ -10,7 +10,9 @@
         <tbody>
             @foreach ($customers as $customer)
                 <tr>
-                    <th><div class="badge badge-dark">{{ $customer->no_table }}</div></th>
+                    <th>
+                        <div class="badge badge-dark">{{ $customer->no_table }}</div>
+                    </th>
                     <td>
                         @if ($customer->status === 'Free')
                             <div class="badge badge-success">{{ $customer->status }}
