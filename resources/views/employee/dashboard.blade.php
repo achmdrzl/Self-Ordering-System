@@ -10,7 +10,7 @@
                     <div class="col-md-12 grid-margin">
                         <div class="row">
                             <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                                <h3 class="font-weight-bold">{{ Auth::user()->name }}</h3>
+                                <h3 class="font-weight-bold">{{ ucfirst(Auth::user()->name) }}</h3>
                                 <h6 class="font-weight-normal mb-0">All systems are running smoothly! <span
                                         class="text-primary">Howdy?</span></h6>
                             </div>
@@ -51,7 +51,7 @@
                                         <div class="card-body">
                                             <p class="mb-4">Today’s Orders</p>
                                             <p class="fs-30 mb-2">
-                                                @if ($orderThisDay->total <= null)
+                                                @if ($orderThisDay === null)
                                                     0
                                                 @else
                                                     {{ $orderThisDay->total }}
@@ -78,7 +78,13 @@
                                         <div class="card card-light-blue">
                                             <div class="card-body">
                                                 <p class="mb-4">Amount Income</p>
-                                                <p class="fs-30 mb-2">Rp. {{ number_format($totalThisDay->total) }}</p>
+                                                <p class="fs-30 mb-2">Rp.
+                                                    @if ($orderThisDay === null)
+                                                        0
+                                                    @else
+                                                        {{ number_format($totalThisDay->total) }}
+                                                    @endif
+                                                </p>
                                                 <p>this day!</p>
                                             </div>
                                         </div>
@@ -186,13 +192,14 @@
                                                                     </div>
                                                                 @endif
                                                             </td>
-                                                            <td>{{ date('d F Y', strtotime($order->invoice->order_date)) }}</td>
+                                                            <td>{{ date('d F Y', strtotime($order->invoice->order_date)) }}
+                                                            </td>
                                                             {{-- <td>{{ $order->created_at->diffForHumans() }}</td> --}}
                                                             <td>
                                                                 <a href="{{ route('show.order', $order->id) }}"
                                                                     class="btn btn-info btn-md text-white"
                                                                     style="width: 60px; height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                                                        class="ti-eye"></i></a>
+                                                                        class="ti-eye"></i> Detail</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

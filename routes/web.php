@@ -65,7 +65,6 @@ Route::group(['middleware' => ['table']], function(){
 
 });
 
-
 // employee controller
 Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
     // Dashboard

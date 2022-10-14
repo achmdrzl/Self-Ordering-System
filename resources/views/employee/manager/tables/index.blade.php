@@ -7,12 +7,6 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 @if (session()->has('message'))
-                    {{-- <div class="alert alert-{{ session()->get('type') }} alert-dismissible fade show">
-                        {{ session()->get('message') }}
-                        <button class="close" type="button" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div> --}}
                     {!! Toastr::message() !!}
                 @endif
                 <div class="row">
