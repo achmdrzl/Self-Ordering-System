@@ -27,6 +27,7 @@
                                 <a href="{{ route('shop.index', $menu_category->slug) }}">
                                     <div class="featured__item__pic set-bg"
                                         data-setbg="{{ $menu_category->photo->getUrl() }}"></div>
+                                        @dd($menu_category->photo->getUrl())
                                 </a>
                                 <div class="featured__item__text">
                                     <h5><a href="{{ route('shop.index', $menu_category->slug) }}"
