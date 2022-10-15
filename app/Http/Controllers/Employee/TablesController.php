@@ -133,7 +133,7 @@ class TablesController extends Controller
     {
         $table = Customer::where('id', $id)->first();
 
-        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('http://localhost:8000/set/' . $table->no_table));
+        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('https://www.ogani-shop.my.id/set/' . $table->no_table));
 
         $customPaper = array(0, 0, 720, 1440);
         $pdf = FacadePdf::loadView('employee.manager.tables.printTable', compact('table', 'qrcode'))->setPaper($customPaper, 'portrait');

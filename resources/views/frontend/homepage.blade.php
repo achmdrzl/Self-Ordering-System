@@ -19,8 +19,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row featured__filter" id="category-list">
-                    {{-- @foreach ($menu_categories as $menu_category)
+                {{-- <div class="row featured__filter" id="category-list"> --}}
+                <div class="row featured__filter">
+                    @foreach ($menu_categories as $menu_category)
                         <div class="col-lg-4 col-md-6 col-sm-12 mix">
                             <div class="featured__item">
                                 <a href="{{ route('shop.index', $menu_category->slug) }}">
@@ -33,7 +34,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach --}}
+                    @endforeach
                 </div>
             </div>
         </section>

@@ -12,7 +12,8 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        return view('frontend.homepage');
+        $menu_categories = Category::all();
+        return view('frontend.homepage', compact('menu_categories'));
     }
 
     public function getCategories()
