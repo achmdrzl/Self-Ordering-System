@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->foreignId('table_id');
             $table->string('orderCode')->nullable();
             $table->string('total');

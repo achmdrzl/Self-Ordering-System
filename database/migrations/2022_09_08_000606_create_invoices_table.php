@@ -15,13 +15,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('payMethod');
             $table->string('total');
             $table->string('status')->default('Unpaid');
             $table->integer('payTotal')->nullable();
             $table->integer('PayBack')->nullable();
-            $table->date('order_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->date('order_date')->default('CURRENT_TIMESTAMP');
             $table->timestamps();
         });
     }
