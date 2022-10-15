@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status')->default('Unpaid');
             $table->integer('payTotal')->nullable();
             $table->integer('PayBack')->nullable();
-            $table->date('order_date')->default('CURRENT_TIMESTAMP');
+            $table->timestamp('order_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });
     }
