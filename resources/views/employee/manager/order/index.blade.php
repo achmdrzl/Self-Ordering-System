@@ -7,30 +7,24 @@
     <div class="main-panel">
         <div class="content-wrapper">
             @if (session()->has('message'))
-                <div class="alert alert-{{ session()->get('type') }} alert-dismissible fade show">
-                    {{ session()->get('message') }}
-                    <button class="close" type="button" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                {!! Toastr::message() !!}
             @endif
             <div class="row">
                 <div class="col-lg-12 col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-title">Order Review</p>
+                            <p class="card-title">Tinjauan Pesanan</p>
                             <div class="row">
                                 <div class="col-12">
-                                    <table id="table-od" cellpadding="5"
-                                        class="table expandable-table table-responsive-lg">
+                                    <table id="table-od" cellpadding="5" class="table expandable-table table-responsive-lg">
                                         <thead>
                                             <tr>
-                                                <th>Table</th>
-                                                <th>Payment Method</th>
+                                                <th>No. Meja</th>
+                                                <th>Metode Bayar</th>
                                                 <th>Total</th>
-                                                <th>Status Order</th>
-                                                <th>Status Payment</th>
-                                                <th>Order Date</th>
+                                                <th>Status Pesanan</th>
+                                                <th>Status Pembayaran</th>
+                                                <th>Tanggal Pesanan</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -61,6 +55,10 @@
                                                             </div>
                                                         @elseif($order->status_order === 'On the Way')
                                                             <div class="badge badge-info">
+                                                                {{ $order->status_order }}
+                                                            </div>
+                                                        @elseif($order->status_order === 'Pending')
+                                                            <div class="badge badge-warning">
                                                                 {{ $order->status_order }}
                                                             </div>
                                                         @else
@@ -99,7 +97,7 @@
                                                                 <button type="submit"
                                                                     class="btn btn-danger btn-md btnactive"
                                                                     style="height:40px"><i class="ti-trash"></i>
-                                                                    Delete</button>
+                                                                    Hapus</button>
                                                             </form>
                                                         @endif
 

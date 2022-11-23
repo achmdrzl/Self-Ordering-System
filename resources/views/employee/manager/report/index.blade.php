@@ -15,35 +15,46 @@
                 </div>
             @endif
             <div class="row">
-                <div class="col-lg-9 col-md-9 grid-margin stretch-card">
+                <div class="col-lg-12 col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-title">Report Sales Review</p>
+                            <p class="card-title">Tinjauan Keuangan Restoran</p>
                             <div class="row">
                                 <div class="col-12">
                                     <a class="btn btn-primary mb-3" data-bs-toggle="modal" href="#exampleModal"
-                                        role="button"><i class="ti-printer btn-icon-append"></i> Report Sales</a>
+                                        role="button"><i class="ti-printer btn-icon-append"></i> Cetak Laporan</a>
                                     <table id="table-ud" cellpadding="5"
                                         class="table display expandable-table table-responsive-md table-responsive-sm">
                                         <thead>
                                             <tr>
-                                                <th>Order Date</th>
-                                                <th>Total</th>
+                                                <th>Tanggal</th>
+                                                <th>Total Pesanan Harian</th>
+                                                <th>Total Pengeluaran Harian</th>
+                                                <th>Total Pendapatan Harian</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($invoices as $item)
-                                                <tr>
-                                                    <th>
-                                                        <div class="badge badge-dark">
-                                                            {{ date('d F Y', strtotime($item->order_date)) }}</div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="badge badge-light" style="font-weight: bold">Rp.
-                                                            {{ number_format($item->grandtotal) }}</div>
-                                                    </td>
-                                                </tr>
+                                            @foreach ($reports as $item)
+                                                    <tr>
+                                                        <th>
+                                                            <div class="badge badge-dark">
+                                                                {{ date('d F Y', strtotime($item->order_date)) }}</div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="badge badge-light" style="font-weight: bold">Rp.
+                                                                {{ number_format($item->totalIncome) }}</div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="badge badge-light" style="font-weight: bold">Rp.
+                                                                {{ number_format($item->totalSpend) }}</div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="badge badge-light" style="font-weight: bold">Rp.
+                                                                {{ number_format($item->totalIncome-$item->totalSpend) }}</div>
+                                                        </td>
+                                                    </tr>
                                             @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -60,7 +71,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Set Time Period</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Atur Periode Waktu</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="background: transparent; border:none;">x</button>
                     </div>
@@ -68,21 +79,22 @@
                         <form action="{{ route('set.time.period') }}" method="POST">
                             @csrf
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">Start</span>
+                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">Mulai Dari</span>
                                 <input type="date" id="payTotal" class="form-control" name="startDate"
                                     placeholder="Input Start Date" required />
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">End</span>
+                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">Sampai Dengan</span>
                                 <input type="date" id="payTotal" class="form-control" name="endDate"
                                     placeholder="Input End Date" required />
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"><i class="ti-printer btn-icon-append"></i> Print</button>
+                        <button type="submit" class="btn btn-primary"><i class="ti-printer btn-icon-append"></i>
+                            Cetak</button>
                         </form>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            style="color: white">Close</button>
+                            style="color: white">Tutup</button>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Employee\ProductsController;
+use App\Http\Controllers\Employee\SpendingController;
 use App\Http\Controllers\Employee\TablesController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ShopController;
@@ -98,6 +99,9 @@ Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
     Route::get('/payment', PaymentController::class . '@index')->name('index.payment');
     Route::post('/cashless/{id}', PaymentController::class . '@cashlessPay')->name('cashless.pay');
     Route::post('/cash/{id}', PaymentController::class . '@cashPay')->name('cash.pay');
+
+    // Spending by Day
+    Route::resource('spending', SpendingController::class);
 
     // Report Sales
     Route::get('/report', ReportController::class . '@index')->name('report.index');

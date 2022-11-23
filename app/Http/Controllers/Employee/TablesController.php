@@ -51,7 +51,14 @@ class TablesController extends Controller
      */
     public function store(TableRequest $request)
     {
-        $customer = Customer::create($request->validated());
+        $this->validate($request, [
+            'no_table' => 'required', 'unique:customers,no_table'
+        ]);
+
+        $input = $request->all();
+        $customer = Customer::create($input);
+        Toastr::success('Tables Created Successfully!', 'Success', ["progressBar" => true,]);
+
         return redirect()->route('tables.index')->with([
             'message' => 'New Table Created Successfully',
             'type' => 'success'
@@ -92,7 +99,7 @@ class TablesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'no_table' => 'required',
+            'no_table' => 'required|unique:customers,no_table'
         ]);
 
         $input = $request->all();
@@ -133,7 +140,8 @@ class TablesController extends Controller
     {
         $table = Customer::where('id', $id)->first();
 
-        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('https://www.ogani-shop.my.id/set/' . $table->no_table));
+        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('http://localhost:8000/set/' . $table->no_table));
+        // $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('https://www.ogani-shop.my.id/set/' . $table->no_table));
 
         $customPaper = array(0, 0, 720, 1440);
         $pdf = FacadePdf::loadView('employee.manager.tables.printTable', compact('table', 'qrcode'))->setPaper($customPaper, 'portrait');

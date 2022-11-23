@@ -11,8 +11,8 @@
                         <div class="row">
                             <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                                 <h3 class="font-weight-bold">{{ ucfirst(Auth::user()->name) }}</h3>
-                                <h6 class="font-weight-normal mb-0">All systems are running smoothly! <span
-                                        class="text-primary">Howdy?</span></h6>
+                                <h6 class="font-weight-normal mb-0">Semua sistem berjalan dengan lancar! <span
+                                        class="text-primary">Apa Kabar?</span></h6>
                             </div>
                         </div>
                     </div>
@@ -27,16 +27,15 @@
                                         <div class="d-flex">
                                             <div>
                                                 <h2 class="mb-0 font-weight-normal">
-                                                    <i
-                                                        class="icon-sun mr-2"></i>{{ round($location->latitude) }}<sup>C</sup>
-                                                    {{-- <i class="icon-sun mr-2"></i>29<sup>C</sup> --}}
+                                                    {{-- <i class="icon-sun mr-2"></i>{{ round($location->latitude) }}<sup>C</sup> --}}
+                                                    <i class="icon-sun mr-2"></i>29<sup>C</sup>
                                                 </h2>
                                             </div>
                                             <div class="ml-2">
-                                                <h4 class="location font-weight-normal">{{ $location->regionName }}</h4>
-                                                <h6 class="font-weight-normal">{{ $location->countryName }}</h6>
-                                                {{-- <h4 class="location font-weight-normal">Surabaya</h4>
-                                            <h6 class="font-weight-normal">Indonesia</h6> --}}
+                                                {{-- <h4 class="location font-weight-normal">{{ $location->regionName }}</h4>
+                                                <h6 class="font-weight-normal">{{ $location->countryName }}</h6> --}}
+                                                <h4 class="location font-weight-normal">Surabaya</h4>
+                                            <h6 class="font-weight-normal">Indonesia</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -49,7 +48,7 @@
                                     class="col-md-{{ Auth::user()->HasRole('cashier') || Auth::user()->HasRole('chef') == 1 ? '12' : '6' }} mb-4 stretch-card transparent">
                                     <div class="card card-tale">
                                         <div class="card-body">
-                                            <p class="mb-4">Today’s Orders</p>
+                                            <p class="mb-4">Pesanan Hari Ini</p>
                                             <p class="fs-30 mb-2">
                                                 @if ($orderThisDay === null)
                                                     0
@@ -57,7 +56,7 @@
                                                     {{ $orderThisDay->total }}
                                                 @endif
                                             </p>
-                                            <p>this day!</p>
+                                            <p>Hari Ini!</p>
                                         </div>
                                     </div>
                                 </div>
@@ -65,9 +64,9 @@
                                     class="col-md-{{ Auth::user()->HasRole('cashier') || Auth::user()->HasRole('chef') == 1 ? '12' : '6' }} mb-4 stretch-card transparent">
                                     <div class="card card-dark-blue">
                                         <div class="card-body">
-                                            <p class="mb-4">Total Tables</p>
+                                            <p class="mb-4">Total Meja</p>
                                             <p class="fs-30 mb-2">{{ $table }}</p>
-                                            <p>{{ $tableFree }} in free!</p>
+                                            <p>{{ $tableFree }} Meja Kosong!</p>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +76,7 @@
                                     <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                                         <div class="card card-light-blue">
                                             <div class="card-body">
-                                                <p class="mb-4">Amount Income</p>
+                                                <p class="mb-4">Pendapatan Hari Ini</p>
                                                 <p class="fs-30 mb-2">Rp.
                                                     @if ($orderThisDay === null)
                                                         0
@@ -85,16 +84,16 @@
                                                         {{ number_format($totalThisDay->total) }}
                                                     @endif
                                                 </p>
-                                                <p>this day!</p>
+                                                <p>Hari Ini!</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 stretch-card transparent">
                                         <div class="card card-light-danger">
                                             <div class="card-body">
-                                                <p class="mb-4">Total Income</p>
+                                                <p class="mb-4">Total Pendapatan</p>
                                                 <p class="fs-30 mb-2">Rp. {{ number_format($grandTotal) }}</p>
-                                                <p>all time!</p>
+                                                <p>Keseluruhan!</p>
                                             </div>
                                         </div>
                                     </div>
@@ -107,8 +106,8 @@
                         <div class="col-md-12 col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <p class="card-title">Income Review</p>
-                                    <p class="font-weight-500">The total number of income we got.</p>
+                                    <p class="card-title">Tinjauan Pendapatan</p>
+                                    <p class="font-weight-500">Jumlah total pendapatan yang kami dapatkan.</p>
                                     <div class="d-flex flex-wrap mb-3">
                                         <div class="mt-3">
                                             {{-- <p class="text-muted">Downloads</p>
@@ -134,16 +133,16 @@
                                     <p class="card-title">Order Review</p>
                                     <div class="row">
                                         <div class="col-12">
-                                            <table id="table-id" cellpadding="5"
+                                            <table id="table-ad" cellpadding="5"
                                                 class="table display expandable-table table-responsive-lg"
                                                 style="width:100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Table</th>
+                                                        <th>No. Meja</th>
                                                         <th>Total</th>
-                                                        <th>Status Order</th>
-                                                        <th>Status Payment</th>
-                                                        <th>Order Date</th>
+                                                        <th>Status Pesanan</th>
+                                                        <th>Status Pembayaran</th>
+                                                        <th>Tanggal Pesanan</th>
                                                         {{-- <th>Order Time</th> --}}
                                                         <th>Action</th>
                                                     </tr>
@@ -198,7 +197,7 @@
                                                             <td>
                                                                 <a href="{{ route('show.order', $order->id) }}"
                                                                     class="btn btn-info btn-md text-white"
-                                                                    style="width: 60px; height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
+                                                                    style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
                                                                         class="ti-eye"></i> Detail</a>
                                                             </td>
                                                         </tr>
@@ -232,14 +231,14 @@
 
                     Highcharts.chart('order-chart', {
                         title: {
-                            text: 'Graphics Sales by Month'
+                            text: 'Grafik Penjualan per Bulan'
                         },
                         xAxis: {
                             categories: month
                         },
                         yAxis: {
                             title: {
-                                text: 'Overall Income'
+                                text: 'Pendapatan Keseluruhan'
                             }
                         },
                         plotOption: {

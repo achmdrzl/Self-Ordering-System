@@ -10,6 +10,7 @@
     {{-- <!-- <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css"> --> --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('template_login/css/login.css') }}">
+    @laravelPWA
 </head>
 
 <body>
@@ -31,21 +32,21 @@
                             <div class="brand-wrapper">
                                 <img src="{{ asset('frontend/img/logo.png') }}" alt="logo" class="logo">
                             </div>
-                            <p class="login-card-description">Sign into your account</p>
+                            <p class="login-card-description">Masuk Dengan Akun Kamu!</p>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="username" class="sr-only">Username</label>
+                                    <label for="username" class="sr-only">Nama Pengguna</label>
                                     <input type="text" name="email" id="username" class="form-control"
-                                        placeholder="Username" required autofocus>
+                                        placeholder="Masukkan Nama Pengguna" required autofocus>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="password" class="sr-only">Password</label>
+                                    <label for="password" class="sr-only">Kata Sandi</label>
                                     <input type="password" name="password" id="password" class="form-control"
-                                        placeholder="***********" required autocomplete="current-password">
+                                        placeholder="Masukkan Kata Sandi" required autocomplete="current-password">
                                 </div>
                                 <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit"
-                                    value="Login">
+                                    value="Masuk">
                             </form>
                         </div>
                     </div>

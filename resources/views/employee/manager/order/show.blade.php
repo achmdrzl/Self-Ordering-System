@@ -12,6 +12,9 @@
     <!-- partial -->
     <div class="main-panel">
         <div class="content-wrapper">
+            @if (session()->has('message'))
+                {!! Toastr::message() !!}
+            @endif
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
@@ -20,19 +23,19 @@
                                 <div class="col-12 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <p class="card-title">Detail Order : <span>Table
+                                            <p class="card-title">Detail Pesanan : <span>No. Meja
                                                     {{ $orders->table_id }}</span></p>
                                             <table class="table table-hover mb-4">
                                                 <tr>
-                                                    <th>No Table</th>
+                                                    <th>Nomor Meja</th>
                                                     <th colspan="6">{{ $orders->table_id }}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Order Date</th>
+                                                    <th>Tanggal Pesanan</th>
                                                     <td colspan="6">{{ $orders->invoice->order_date }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Payment Method</th>
+                                                    <th>Metode Pembayaran</th>
                                                     <td colspan="6">{{ strtoupper($orders->invoice->payMethod) }}
                                                     </td>
                                                 </tr>
@@ -50,33 +53,42 @@
                                                 @if ($orders->invoice->payMethod === 'cashless')
                                                 @else
                                                     <tr>
-                                                        <th>Total Payment</th>
+                                                        <th>Total Pembayaran</th>
                                                         <td colspan="6">Rp.
                                                             {{ number_format($orders->invoice->payTotal) }}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Change Money</th>
+                                                        <th>Total Uang Kembalian</th>
                                                         <td colspan="6">Rp.
                                                             {{ number_format($orders->invoice->PayBack) }}
                                                         </td>
                                                     </tr>
                                                 @endif
                                                 <tr>
-                                                    <th>Status Payment</th>
+                                                    <th>Status Pembayaran</th>
                                                     <td colspan="6">
-                                                        <div
-                                                            class="badge badge-{{ $orders->invoice->status === 'Unpaid' ? 'danger' : 'success' }}">
-                                                            {{ strtoupper($orders->invoice->status) }}
-                                                        </div>
+                                                        @if ($orders->invoice->status === 'Unpaid')
+                                                            <div class="badge badge-danger">
+                                                                {{ strtoupper($orders->invoice->status) }}
+                                                            </div>
+                                                        @elseif($orders->invoice->status === 'pending')
+                                                            <div class="badge badge-warning">
+                                                                {{ strtoupper($orders->invoice->status) }}
+                                                            </div>
+                                                        @else
+                                                            <div class="badge badge-success">
+                                                                {{ strtoupper($orders->invoice->status) }}
+                                                            </div>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             </table>
                                             <table class="table mb-4 display expandable-table table-responsive-md">
                                                 <thead>
                                                     <th>No</th>
-                                                    <th>Menu Order</th>
-                                                    <th>Qty</th>
+                                                    <th>Menu Yang di Pesan</th>
+                                                    <th>Kuantiti</th>
                                                     <th>Total</th>
                                                 </thead>
                                                 <tbody>
@@ -93,18 +105,18 @@
                                             </table>
                                             @if ($orders->invoice->status == 'settlement' || $orders->invoice->status == 'Settlement')
                                                 <a href="{{ route('print.pdf', $orders->id) }}" class="btn btn-dark btn-md"
-                                                    style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                                        class="ti-printer"></i><span> Print Receipt</span></a>
+                                                    style="height:45px; display:inline-flex; align-items:center; justify-content: center;"><i
+                                                        class="ti-printer"></i> <span> Cetak Struk</span></a>
                                             @else
                                                 @if ($orders->invoice->payMethod === 'cashless')
                                                     <button type="submit" id="pay-button" class="btn btn-danger"
-                                                        style="width:150px">Pay!</button>
+                                                        style="width:150px">Bayar!</button>
                                                 @else
                                                     <a class="btn btn-danger" data-bs-toggle="modal" href="#exampleModal"
-                                                        role="button" style="width:150px;">Pay!</a>
+                                                        role="button" style="width:150px;">Bayar!</a>
                                                 @endif
                                             @endif
-                                            <a href="{{ route('orders.index') }}" class="btn btn-primary btn-md">Back</a>
+                                            <a href="{{ route('orders.index') }}" class="btn btn-primary btn-md">Kembali</a>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +134,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Cash Payment Method</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Metode Pembayaran Cash</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="background: transparent; border:none;">x</button>
                     </div>
@@ -130,29 +142,28 @@
                         <form action="{{ route('cash.pay', $orders->id) }}" method="POST">
                             @csrf
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">No
-                                    Table</span>
+                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">No.
+                                    Meja</span>
                                 <input type="text" class="form-control" name="noTable" value="{{ $orders->table_id }}"
                                     readonly />
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="num1" style="font-weight: bold">Total
-                                    Payment</span>
+                                <span class="input-group-text" id="num1" style="font-weight: bold">Total Yang Harus di
+                                    Bayar</span>
                                 <input type="text" class="form-control" name="total"
                                     value="Rp. {{ number_format($orders->invoice->total) }}" readonly />
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">Payment
-                                    Total</span>
+                                <span class="input-group-text" id="basic-addon2" style="font-weight: bold">Total Pembayaran</span>
                                 <input type="text" id="num2" class="form-control" name="payTotal"
                                     placeholder="Input Payment Total" required />
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Pay!</button>
+                        <button type="submit" class="btn btn-primary">Bayar!</button>
                         </form>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            style="color: white">Close</button>
+                            style="color: white">Tutup</button>
                     </div>
                 </div>
             </div>

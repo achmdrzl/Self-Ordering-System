@@ -7,10 +7,10 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="breadcrumb__text">
-                            <h2>Checkout</h2>
+                            <h2>Pesan Yuk!</h2>
                             <div class="breadcrumb__option">
-                                <a href="{{ route('homepage') }}">Home</a>
-                                <span>Checkout</span>
+                                <a href="{{ route('homepage') }}">Beranda</a>
+                                <span>Pesan Yuk!</span>
                             </div>
                         </div>
                     </div>
@@ -22,15 +22,27 @@
         <!-- Checkout Section Begin -->
         <section class="checkout spad">
             <div class="container">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                        </ul>
+                        <button class="close" type="button" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="checkout__form">
-                    <h4>Billing Details on Table {{ request()->session()->get('no_table') }}</h4>
+                    <h4>Detail Pesanan, No Meja Kamu {{ request()->session()->get('no_table') }}!</h4>
                     <form action="{{ route('order.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <div class="checkout__order">
-                                    <h4>Your Order</h4>
-                                    <div class="checkout__order__products">Products <span>Total</span></div>
+                                    <h4>Pesanan Kamu!</h4>
+                                    <div class="checkout__order__products">Menu Makanan <span>Total</span></div>
                                     <ul>
                                         @foreach ($carts as $cart)
                                             <li>{{ $cart->name }} x{{ $cart->qty }} (Rp. {{ $cart->price }})<span>Rp.
@@ -41,23 +53,23 @@
                                     </div>
                                     <div class="checkout__order__total">Total <span>Rp. {{ Cart::total() }}</span></div>
 
-                                    @if($data == 1)
-
+                                    {{-- Validate Repeat Orders --}}
+                                    @if ($data == 1)
                                     @else
-                                    <p style="font-weight:500;">Metode Pembayaran</p>
-                                    <div class="input-group">
-                                        <div style="width:550px; box-sizing: border-box;">
-                                            <select name="payMethod" id="payMethod" class="form-input">
-                                                <option value="default" selected>-- Select Payment Method --</option>
-                                                <option value="cashless">Cashless Method</option>
-                                                <option value="cash">Cash Method</option>
-                                            </select>
+                                        <p style="font-weight:500;">Metode Pembayaran</p>
+                                        <div class="input-group">
+                                            <div style="width:650px; box-sizing: border-box;">
+                                                <select name="payMethod" id="payMethod" class="form-input">
+                                                    <option value="">-- Pilih Metode Pembayaran --</option>
+                                                    <option value="cashless">Metode Cashless</option>
+                                                    <option value="cash">Metode Cash</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
                                     <div style="margin-bottom:25px"></div>
                                     <button type="submit" class="site-btn"
-                                        {{ Cart::content()->count() < 1 ? 'disabled' : '' }}>PLACE ORDER</button>
+                                        {{ Cart::content()->count() < 1 ? 'disabled' : '' }}>Pesan Sekarang!</button>
                                 </div>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\Order;
+use App\Models\Spending;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
@@ -14,13 +15,14 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $invoices =
-            Invoice::groupBy('order_date')
-            ->selectRaw('*, sum(total) as grandtotal')
-            ->orderByRaw('order_date DESC')
-            ->get();
 
-        return view('employee.manager.report.index', compact('invoices'));
+        $reports = DB::table('spendings')
+            ->join('invoices', 'spendings.spendingDate', '=', 'invoices.order_date')
+            ->select('invoices.*', 'spendings.item', 'spendings.priceItem', DB::raw('SUM(invoices.total) as totalIncome'), DB::raw('SUM(spendings.priceItem) as totalSpend') )
+            ->groupBy('invoices.order_date')
+            ->get();
+        
+        return view('employee.manager.report.index', compact('reports'));
     }
 
     public function setPeriod(Request $request)

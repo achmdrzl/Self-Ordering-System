@@ -17,6 +17,7 @@ class PaymentController extends Controller
         $data = json_decode($request->get('result'));
         $invoice = Invoice::where('id', $id)->first();
 
+        // dd($data);
         // update invoice
         $invoice->update([
             'status' => $data->transaction_status,
@@ -27,17 +28,25 @@ class PaymentController extends Controller
             'id',
             $id
         )->get();
-        
+
         foreach ($orders as $order) {
-            // update data customer
-            Customer::where('id', $order->table_id)->update([
-                'status' => 'Free'
-            ]);
-            
-            // update data order
-            Order::where('id', $id)->update([
-                'status_order' => 'Finished'
-            ]);
+
+            if ($data->transaction_status === 'pending') {
+                // update data order
+                Order::where('id', $id)->update([
+                    'status_order' => 'Pending'
+                ]);
+            } else {
+                // update data customer if finished
+                Customer::where('id', $order->table_id)->update([
+                    'status' => 'Free'
+                ]);
+
+                // update data order
+                Order::where('id', $id)->update([
+                    'status_order' => 'Finished'
+                ]);
+            }
         }
 
         return redirect()->back();
@@ -45,6 +54,10 @@ class PaymentController extends Controller
 
     public function cashPay(Request $request, $id)
     {
+        $this->validate($request, [
+            'payTotal' => 'required',
+        ]);
+
         $payTotal = $request->input('payTotal');
 
         $orders = Order::where('id', $id)->get();
@@ -52,15 +65,23 @@ class PaymentController extends Controller
         foreach ($orders as $order) {
             $invoice = Invoice::where('id', $order->invoice_id)->get();
             foreach ($invoice as $item) {
-                
-                $total = $payTotal - $item->total;
 
-                Invoice::where('id', $order->invoice_id)
-                    ->update([
-                        'payTotal' => $payTotal,
-                        'PayBack' => $total,
-                        'status' => 'Settlement'
+                if ($item->total > $payTotal) {
+                    Toastr::error('Nominal Tidak Mencukupi!', 'Error', ["progressBar" => true,]);
+                    return redirect()->back()->with([
+                        'message' => 'User Updated Successfully',
+                        'type' => 'success',
                     ]);
+                } else {
+                    $total = $payTotal - $item->total;
+
+                    Invoice::where('id', $order->invoice_id)
+                        ->update([
+                            'payTotal' => $payTotal,
+                            'PayBack' => $total,
+                            'status' => 'Settlement'
+                        ]);
+                }
             }
 
             Customer::where('id', $order->table_id)->update([

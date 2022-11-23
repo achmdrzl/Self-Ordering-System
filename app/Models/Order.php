@@ -59,9 +59,24 @@ class Order extends Model
                     'table_id' => $customer->no_table
                 ]);
 
+                // Minus Stock Product
+
+                // Validate Qty
+                #code
+
+                
                 // Place Order
                 $order_products = [];
                 foreach (Cart::content() as $cartData) {
+
+                    // Minus Stock
+                    $finalStock = [];
+                    $qty = $cartData->qty;
+                    $products = Product::find($cartData->id);
+                    $data = $products->stock - $qty;
+                    $products->where('id', $cartData->id)->update(['stock' => $data ]);
+
+                    // Insert to Detail Order
                     $order_products[] = [
                         'order_id' => $order->id,
                         'product_id' => $cartData->id,

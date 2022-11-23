@@ -20,7 +20,7 @@
                       <a class="nav-link {{ request()->segment(1) == 'tables' ? 'active' : '' }}"
                           href="{{ route('tables.index') }}" aria-expanded="false" aria-controls="auth">
                           <i class="ti-pie-chart menu-icon"></i>
-                          <span class="menu-title">Tables Management</span>
+                          <span class="menu-title">Data Meja</span>
                       </a>
                   </li>
               @endif
@@ -31,14 +31,14 @@
                       <a class="nav-link" data-toggle="collapse" href="#food-data" aria-expanded="false"
                           aria-controls="food-data">
                           <i class="icon-layout menu-icon"></i>
-                          <span class="menu-title">Food Data</span>
+                          <span class="menu-title">Data Makanan</span>
                           <i class="menu-arrow"></i>
                       </a>
                       <div class="collapse" id="food-data">
                           <ul class="nav flex-column sub-menu">
                               <li class="nav-item"> <a class="nav-link"
-                                      href="{{ route('category.index') }}">Categories</a></li>
-                              <li class="nav-item"> <a class="nav-link" href="{{ route('products.index') }}">Menus</a>
+                                      href="{{ route('category.index') }}">Kategori</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="{{ route('products.index') }}">Menu</a>
                               </li>
                           </ul>
                       </div>
@@ -46,27 +46,34 @@
                   <li class="nav-item">
                       <a class="nav-link {{ request()->segment(1) == 'payment' ? 'active' : '' }}"
                           href="{{ route('orders.index') }}" aria-expanded="false" aria-controls="auth">
-                          <i class="icon-head menu-icon"></i>
-                          <span class="menu-title">Order</span>
+                          <i class="ti-shopping-cart menu-icon"></i>
+                          <span class="menu-title">Data Order</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {{ request()->segment(1) == 'spending' ? 'active' : '' }}"
+                          href="{{ route('spending.index') }}" aria-expanded="false" aria-controls="auth">
+                          <i class="ti-cloud-up menu-icon"></i>
+                          <span class="menu-title">Data Pengeluaran</span>
                       </a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link {{ request()->segment(1) == 'tables' ? 'active' : '' }}"
                           href="{{ route('tables.index') }}">
                           <i class="ti-pie-chart menu-icon"></i>
-                          <span class="menu-title">Tables Management</span>
+                          <span class="menu-title">Data Meja</span>
                       </a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('employeeData.index') }}">
-                          <i class="icon-head menu-icon"></i>
-                          <span class="menu-title">Employees Data</span>
+                          <i class="ti-user menu-icon"></i>
+                          <span class="menu-title">Data Karyawan</span>
                       </a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('report.index') }}">
                           <i class="ti-money menu-icon"></i>
-                          <span class="menu-title">Report Sales</span>
+                          <span class="menu-title">Laporan Keuangan</span>
                       </a>
                   </li>
               @endif

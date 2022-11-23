@@ -14,10 +14,10 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Detail product : <span>{{$product->name_product}}</span></p>
+                                                <p class="card-title">Detail Menu : <span>{{$product->name_product}}</span></p>
                                                 <table class="table table-hover mb-4">
                                                     <tr>
-                                                        <th>Image Product</th>
+                                                        <th>Gambar Menu Makanan</th>
                                                         <td colspan="6"></td>
                                                     </tr>
                                                     <tr>
@@ -31,11 +31,11 @@
                                                                 </div>
                                                             </th>
                                                         @empty
-                                                            <th><span class="badge bagde-warning">No Images</span></th>
+                                                            <th><span class="badge bagde-warning">Tidak Ada Gambar</span></th>
                                                         @endforelse
                                                     </tr>
                                                     <tr>
-                                                        <th>Description Product</th>
+                                                        <th>Deskripsi Menu Makanan</th>
                                                         <td colspan="6">{{ $product->description }}</td>
                                                     </tr>
                                                     <tr>
@@ -44,7 +44,7 @@
                                                     </tr>
                                                     <tr></tr>
                                                 </table>
-                                                <a href="{{ route('products.index') }}" class="btn btn-primary btn-md">Back</a>
+                                                <a href="{{ route('products.index') }}" class="btn btn-primary btn-md">Kembali</a>
                                             </div>
                                         </div>
                                     </div>

@@ -26,42 +26,42 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Create New Employee</p>
+                                                <p class="card-title">Tambah Akun Karyawan Baru</p>
                                                 <p class="card-description">
-                                                    Complete the following form!
+                                                    Harap Lengkapi Seluruh Inputan!
                                                 </p>
                                                 <form class="forms-sample" action="{{ route('employeeData.store') }}"
                                                     method="POST">
                                                     @csrf
                                                     <div class="form-group">
-                                                        <label for="name_product">Name</label>
+                                                        <label for="name_product">Nama</label>
                                                         <input type="text" class="form-control" name="name"
-                                                            id="name" placeholder="Input Name"
+                                                            id="name" placeholder="Masukkan Nama Karyawan"
                                                             value="{{ old('name') }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="name_product">Email</label>
                                                         <input type="text" class="form-control" name="email"
-                                                            id="email" placeholder="Input Email"
+                                                            id="email" placeholder="Masukkan Email Karyawan"
                                                             value="{{ old('email') }}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="name_product">Password</label>
+                                                        <label for="name_product">Kata Sandi</label>
                                                         <input type="password" class="form-control" name="password"
-                                                            id="password" placeholder="Input Password"
+                                                            id="password" placeholder="Masukkan Kata Sandi"
                                                             value="{{ old('password') }}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="name_product">Confirm Password</label>
+                                                        <label for="name_product">Konfirmasi Kata Sandi</label>
                                                         <input type="password" class="form-control" name="confirm-password"
-                                                            id="password_confirmation" placeholder="Input password_confirmation"
+                                                            id="password_confirmation" placeholder="Masukkan Kata Sandi Sekali Lagi"
                                                             value="{{ old('password_confirmation') }}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="category">Select Role</label>
+                                                        <label for="category">Posisi Karyawan</label>
                                                         <select type="text" class="form-control" name="roles"
-                                                            id="parent" placeholder="Name product">
-                                                            <option value="">-- Choose Roles --</option>
+                                                            id="parent" placeholder="Pilih Posisi">
+                                                            <option value="">-- Pilih Posisi --</option>
                                                             @foreach ($roles as $role)
                                                                 <option value="{{ $role->name }}">{{ strtoupper($role->name) }}
                                                                 </option>
@@ -69,9 +69,9 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                                         <a href="{{ route('employeeData.index') }}"
-                                                            class="btn btn-light">Cancel</a>
+                                                            class="btn btn-light">Batal</a>
                                                     </div>
                                                 </form>
                                             </div>

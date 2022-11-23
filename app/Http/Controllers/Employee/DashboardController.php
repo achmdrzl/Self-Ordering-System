@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $location = Location::get();
 
         // Order Review for Chef Roles
-        $orders = Order::all();
+        $orders = Order::orderBy('id', 'DESC')->get();
 
         // Total Orders this Day
         $orderThisDay =

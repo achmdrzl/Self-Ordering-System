@@ -19,13 +19,14 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-title">Foods Data</p>
+                                <p class="card-title">Data Menu Makanan</p>
                                 <div class="row">
                                     <div class="col-12">
                                         <a class="btn btn-primary mb-3" href="{{ route('products.create') }}"><i
-                                                class="ti-plus btn-icon-append"></i> Add Product</a>
+                                                class="ti-plus btn-icon-append"></i> Tambah Menu</a>
                                         {{-- {{ $role->table() }} --}}
-                                        <table id="table-id" cellpadding="5"
+                                        @livewire('products-list')
+                                        {{-- <table id="table-id" cellpadding="5"
                                             class="table display expandable-table table-responsive-md" style="width:100%;">
                                             <thead>
                                                 <tr>
@@ -34,6 +35,7 @@
                                                     <th>Category</th>
                                                     <th>Price</th>
                                                     <th>Images</th>
+                                                    <th>Stock</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -56,6 +58,22 @@
                                                             @else
                                                                 <span class="badge badge-warning">No Image</span>
                                                             @endif
+                                                        </td>
+                                                        <td class="shoping__cart__quantity">
+                                                            <div class="quantity">
+                                                                <div class=""
+                                                                    style="justify-content:center; text-align:center; width:130px; height:30px; margin: 0 auto;">
+                                                                    <button
+                                                                        wire:click.prevent="decreaseQuantity('{{ $product->id }}')"
+                                                                        class="text-gray-500 focus:outline-none focus:text-gray-600">-</button>
+                                                                    <input id=demoInput type=number min=1 max=100
+                                                                        value="{{ $product->stock == NULL ? '0' : $product->stock }}" readonly
+                                                                        style="border:none; background:whitesmoke; text-align:center; font-weight:bold; width:35px; margin:auto;">
+                                                                    <button
+                                                                        wire:click.prevent="increaseQuantity('{{ $product->id }}')"
+                                                                        class="text-gray-500 focus:outline-none focus:text-gray-600">+</button>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                         <th>
                                                             <div
@@ -98,7 +116,7 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
-                                        </table>
+                                        </table> --}}
                                     </div>
                                 </div>
                             </div>
@@ -200,5 +218,10 @@
                     });
 
                 });
+
+                window.addEventListener('productUpdated', event => {
+                    // swal("Success", "Stock Updated Successfully", "success");
+                    location.reload();
+                })
             </script>
         @endpush

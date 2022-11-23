@@ -31,16 +31,16 @@
             <div id="qr-reader-results"></div>
             <div class="card">
                 <div class="card-header">
-                    Scan Here
+                    Pindai di Sini
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Scanner QR Code</h5>
-                    <p class="card-text">Complete these step to order foods.</p>
+                    <h5 class="card-title">Pindai QR Code</h5>
+                    <p class="card-text">Selesaikan Tahap ini Untuk Pemesanan Makanan</p>
                     <div id="qr-reader"></div>
 
                 </div>
                 <div class="card-footer text-muted">
-                    place it according to the qr code in the middle of the scanner
+                    Letakkan Sesuai Dengan Qr Code di Tengah Pemindai
                 </div>
             </div>
         </div>

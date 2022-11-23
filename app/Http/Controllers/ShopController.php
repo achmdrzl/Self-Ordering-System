@@ -46,7 +46,7 @@ class ShopController extends Controller
             }
         }
 
-        $products = $products->where('status', 'active')->orderBy($sortField, $sortBy)->paginate(5);
+        $products = $products->whereNotIn('stock', [0])->where('status', 'active')->orderBy($sortField, $sortBy)->paginate(5);
 
         return view('frontend.shop.index', compact('products', 'sorting'));
 

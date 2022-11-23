@@ -27,24 +27,24 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Edit Table</p>
+                                                <p class="card-title">Edit No. Meja</p>
                                                 <p class="card-description">
-                                                    Complete the following form!
+                                                    Harap Lengkapi Seluruh Inputan!
                                                 </p>
                                                 <form class="forms-sample" action="{{ route('tables.update', $table->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="form-group">
-                                                        <label for="no_tables">No. Tables</label>
-                                                        <input type="text" class="form-control" name="no_table"
-                                                            id="no_tables" placeholder="Number of New Table"
+                                                        <label for="no_tables">No. Meja</label>
+                                                        <input type="number" class="form-control" name="no_table"
+                                                            id="no_tables" placeholder="Masukkan No. Meja"
                                                             value="{{ $table->no_table }}" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                                         <a href="{{ route('tables.index') }}"
-                                                            class="btn btn-light">Cancel</a>
+                                                            class="btn btn-light">Batal</a>
                                                     </div>
                                                 </form>
                                             </div>

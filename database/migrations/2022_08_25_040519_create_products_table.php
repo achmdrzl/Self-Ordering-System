@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name_product');
             $table->string('slug');
             $table->integer('price');
+            $table->integer('stock')->default('0')->nullable();
             $table->text('description');
             $table->text('details');
             $table->string('status')->default('active');

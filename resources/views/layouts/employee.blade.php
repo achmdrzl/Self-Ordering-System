@@ -5,7 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Skydash Admin</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Admin Panel</title>
     <!-- plugins:css -->
     {{-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> --}}
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -54,7 +55,7 @@
                 <ul class="navbar-nav mr-lg-2">
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                             data-toggle="dropdown">
                             <i class="icon-bell mx-0"></i>
@@ -103,22 +104,22 @@
                                 </div>
                             </a>
                         </div>
-                    </li>
+                    </li> --}}
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                             <img src="{{ asset('employee/images/faces/face28.jpg') }}" alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
-                            <a class="dropdown-item">
+                            {{-- <a class="dropdown-item">
                                 <i class="ti-settings text-primary"></i>
                                 Settings
-                            </a>
+                            </a> --}}
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button class="dropdown-item">
                                     <i class="ti-power-off text-primary"></i>
-                                    Logout
+                                    Keluar
                                 </button>
                             </form>
                         </div>
@@ -205,6 +206,11 @@
         $(document).ready(function() {
             $('#table-od').DataTable({
                 "order": [['6','desc']],
+            });
+        });
+        $(document).ready(function() {
+            $('#table-ad').DataTable({
+                "order": [['5','desc']],
             });
         });
         $(document).ready(function() {

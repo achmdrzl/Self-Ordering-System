@@ -19,11 +19,11 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-title">Categories Data</p>
+                                <p class="card-title">Data Kategori Makanan</p>
                                 <div class="row">
                                     <div class="col-12">
                                         <a class="btn btn-primary mb-3" href="{{ route('category.create') }}"><i
-                                                class="ti-plus btn-icon-append"></i> Add Category</a>
+                                                class="ti-plus btn-icon-append"></i> Tambah Kategori</a>
                                         {{-- {{ $role->table() }} --}}
                                         <table id="table-id" cellpadding="5"
                                             class="table expandable-table table-responsive-md"
@@ -31,8 +31,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name Category</th>
-                                                    <th>Images</th>
+                                                    <th>Nama Kategori</th>
+                                                    <th>Gambar</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -50,7 +50,7 @@
                                                                         class="img-lg" width="1150px" height="250px">
                                                                 </a>
                                                             @else
-                                                                <span class="badge badge-warning">No Image</span>
+                                                                <span class="badge badge-warning">Tidak Ada Gambar</span>
                                                             @endif
                                                         </td>
                                                         <th>
@@ -72,7 +72,7 @@
                                                                     <button type="submit"
                                                                         class="btn btn-success btn-md btnactive"
                                                                         style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                                                            class="ti-cloud-down"></i> Show</button>
+                                                                            class="ti-cloud-down"></i> Tampilkan</button>
                                                                 </form>
                                                             @else
                                                                 <form
@@ -83,7 +83,7 @@
                                                                     <button type="submit"
                                                                         class="btn btn-danger btn-md btnunactive"
                                                                         style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                                                            class="ti-cloud-up"></i> Archive</button>
+                                                                            class="ti-cloud-up"></i> Arsipkan</button>
                                                                 </form>
                                                             @endif
                                                         </td>
