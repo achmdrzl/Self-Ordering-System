@@ -7,10 +7,10 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="breadcrumb__text">
-                            <h2>Organi Shop</h2>
+                            <h2>Daftar Menu!</h2>
                             <div class="breadcrumb__option">
-                                <a href="{{ route('homepage') }}">Home</a>
-                                <span>Shop</span>
+                                <a href="{{ route('homepage') }}">Beranda</a>
+                                <span>Daftar Menu!</span>
                             </div>
                         </div>
                     </div>
@@ -32,21 +32,21 @@
                                 <div class="col-lg-4 col-md-5">
                                     <form method="get">
                                         <div class="filter__sort">
-                                            <span>Sort By</span>
+                                            <span>Filter</span>
                                             <select name="sortingBy" onchange="this.form.submit()">
                                                 <option {{ $sorting === 'default' ? 'selected' : null }} value="default">
                                                     Default</option>
                                                 <option {{ $sorting === 'low-high' ? 'selected' : null }} value="low-high">
-                                                    Low to High</option>
+                                                    Harga Rendah ke Tinggi</option>
                                                 <option {{ $sorting === 'high-low' ? 'selected' : null }} value="high-low">
-                                                    High to Low</option>
+                                                    Harga Tinggi ke Renda</option>
                                             </select>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-lg-4 col-md-4">
                                     <div class="filter__found">
-                                        <h6><span>{{ $products->total() }}</span> Products found</h6>
+                                        <h6><span>{{ $products->total() }}</span> Menu di Temukan!</h6>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-3">
@@ -89,7 +89,7 @@
                             @empty
                                 <div class="col-lg-12 col-md-12">
                                     <div class="filter__found">
-                                        <h6><span>Product Empty</span></h6>
+                                        <h6><span>Yah:( Menu Yang Kamu Cari Kosong!</span></h6>
                                     </div>
                                 </div>
                             @endforelse

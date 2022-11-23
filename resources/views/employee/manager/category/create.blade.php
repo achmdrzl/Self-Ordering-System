@@ -27,17 +27,17 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Create Category</p>
+                                                <p class="card-title">Tambah Kategori Baru</p>
                                                 <p class="card-description">
-                                                    Complete the following form!
+                                                    Harap Lengkapi Seluruh Inputan!
                                                 </p>
                                                 <form class="forms-sample" action="{{ route('category.store') }}"
                                                     method="POST">
                                                     @csrf
                                                     <div class="form-group">
-                                                        <label for="nameCategory">Name Category</label>
+                                                        <label for="nameCategory">Nama Kategori</label>
                                                         <input type="text" class="form-control" name="name_category"
-                                                            id="nameCategory" placeholder="Name Category">
+                                                            id="nameCategory" placeholder="Masukkan Nama Kategori">
                                                     </div>
                                                     {{-- <div class="form-group">
                                                         <label for="parent">Parent</label>
@@ -51,13 +51,13 @@
                                                         </select>
                                                     </div> --}}
                                                     <div class="form-group">
-                                                        <label for="photo">Upload Images</label>
+                                                        <label for="photo">Unggah Gambar</label>
                                                         <div class="needsclick dropzone" id="photoDropzone"></div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                                         <a href="{{ route('category.index') }}"
-                                                            class="btn btn-light">Cancel</a>
+                                                            class="btn btn-light">Batal</a>
                                                     </div>
                                                 </form>
                                             </div>

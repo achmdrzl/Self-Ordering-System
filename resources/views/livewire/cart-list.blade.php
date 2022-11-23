@@ -18,9 +18,10 @@
                             @if (Cart::count() > 0)
                                 <thead>
                                     <tr>
-                                        <th class="shoping__product">Products</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
+                                        <th class="shoping__product">Menu Makanan</th>
+                                        <th>Harga</th>
+                                        <th>Stok</th>
+                                        <th>Kuantiti</th>
                                         <th>Total</th>
                                         <th></th>
                                     </tr>
@@ -36,13 +37,19 @@
                                                         width="80px">
                                                 @endif
                                             @endforeach
-                                            <h5 style="font-weight: bold; font-size: 1.5em">{{ $product->name }}
-                                            </h5>
+                                            <h5 style="font-weight: bold; font-size: 1.5em">{{ $product->name }}</h5>
                                         </td>
                                         <td class="shoping__cart__price">
                                             Rp. {{ number_format($product->price) }}
                                         </td>
-                                            {{-- <div class="w-20 h-10">
+                                        <td class="shoping__cart__price">
+                                            @foreach ($imgs as $img)
+                                                @if ($img->id == $product->id)
+                                                    {{ $img->stock }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        {{-- <div class="w-20 h-10">
                                                 <div
                                                     class="relative flex flex-row content-center justify-center w-full h-8 border-2 border-green-200">
                                                     <button
@@ -66,16 +73,25 @@
                                             </div> --}}
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
-                                                <div class="" style="background-color:whitesmoke; width:130px; height:30px; justify-content:center; margin: 0 auto;">
+                                                <div class=""
+                                                    style="background-color:whitesmoke; width:130px; height:30px; justify-content:center; margin: 0 auto;">
                                                     <button
                                                         wire:click.prevent="decreaseQuantity('{{ $product->rowId }}')"
                                                         style="border: none; background:whitesmoke">-</button>
-                                                    <input id=demoInput type=number min=1 max=100
+                                                    <input id=demoInput type=number min=1 max=3
                                                         value="{{ $product->qty }}" readonly
-                                                        style="border:none; background:whitesmoke; text-align:center; width:35px; margin:auto;">
-                                                    <button
-                                                        wire:click.prevent="increaseQuantity('{{ $product->rowId }}')"
-                                                        style="border: none; background:whitesmoke">+</button>
+                                                        style="border:none; background:whitesmoke; text-align:center; width:60px; margin:auto;">
+                                                    @foreach ($imgs as $img)
+                                                        @if ($img->id == $product->id)
+                                                            @if ($product->qty == $img->stock)
+                                                            @else
+                                                                <button
+                                                                    wire:click.prevent="increaseQuantity('{{ $product->rowId }}')"
+                                                                    style="border: none; background:whitesmoke">+</button>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+
                                                 </div>
                                             </div>
                                         </td>
@@ -113,9 +129,11 @@
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns"
                         style=" {{ Cart::count() > 0 ? '' : 'display: flex; justify-content: center; align-items:center' }}">
-                        <a href="{{ route('homepage') }}" class="secondary-btn cart-btn" style="matgin-top:50px">CONTINUE SHOPPING</a>
+                        <a href="{{ route('homepage') }}" class="secondary-btn cart-btn"
+                            style="margin-bottom:10px; ">Nanti Dulu!</a>
                         @if (Cart::count() > 0)
-                            <a href="{{ route('order.index') }}" class="secondary-btn cart-btn" style="matgin-top:50px" >PROCCED TO CHECKOUT</a>
+                            <a href="{{ route('order.index') }}" class="secondary-btn cart-btn"
+                                style="matgin-top:50px">Pesan Sekarang!</a>
                         @endif
                     </div>
                 </div>

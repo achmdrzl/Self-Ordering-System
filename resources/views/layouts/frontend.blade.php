@@ -7,6 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>OrderingResto</title>
 
     <!-- Google Font -->
@@ -40,8 +41,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> ogani@gmail.com</li>
-                                <li>Self Ordering System Restaurant</li>
+                                <li><i class="fa fa-envelope"></i> stoptea@gmail.com</li>
+                                <li>Sistem Pemesanan Mandiri Restoran</li>
                             </ul>
                         </div>
                     </div>
@@ -79,12 +80,12 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__copyright">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
+                            <a href="{{ route('homepage') }}"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: Indonesia</li>
                             <li>Phone: +62 812406 7383</li>
-                            <li>Email: ogani@gmail.com</li>
+                            <li>Email: stoptea@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -98,8 +99,8 @@
                                 Copyright &copy;
                                 <script>
                                     document.write(new Date().getFullYear());
-                                </script> All rights reserved 
-                               {{-- | This template is made with <i
+                                </script> All rights reserved
+                                {{-- | This template is made with <i
                                     class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
                                     target="_blank">Colorlib</a> --}}
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -126,7 +127,7 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     @viteReactRefresh
-    @vite(['resources/js/app.js'])
+    {{-- @vite(['resources/js/app.js']) --}}
     @livewireScripts
     @stack('script-alt')
 </body>

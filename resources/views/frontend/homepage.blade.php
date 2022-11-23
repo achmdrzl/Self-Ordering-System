@@ -1,5 +1,5 @@
     @extends('layouts.frontend')
-
+    
     @section('content')
         <!-- Categories Section Begin -->
         <section class="categories">
@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title">
-                            <h2>List Categories</h2>
+                            <h2>Daftar Kategori</h2>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@
     @empty
         <div class="col-lg-12 col-md-12">
             <div class="filter__found">
-                <h6><span>Product Empty</span></h6>
+                <h6><span>Menu Yang Kamu Cari Kosong!</span></h6>
             </div>
         </div>
     @endforelse

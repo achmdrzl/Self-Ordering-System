@@ -26,25 +26,24 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Edit product</p>
+                                                <p class="card-title">Edit Menu Makanan</p>
                                                 <p class="card-description">
-                                                    Complete the following form!
-                                                </p>
+                                                    Harap Lengkapi Seluruh Inputan!
                                                 <form class="forms-sample"
                                                     action="{{ route('products.update', $product->id) }}" method="POST">
                                                     @csrf
                                                     @method('put')
                                                     <div class="form-group">
-                                                        <label for="name_product">Name product</label>
+                                                        <label for="name_product">Nama Menu Makanan</label>
                                                         <input type="text" class="form-control" name="name_product"
-                                                            id="name_product" placeholder="Name product"
+                                                            id="name_product" placeholder="Masukkan Nama Menu Makanan"
                                                             value="{{ old('name_product', $product->name_product) }}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="category">Category</label>
+                                                        <label for="category">Kategori Menu </label>
                                                         <select type="text" class="form-control" name="category_id"
                                                             id="parent" placeholder="Name product">
-                                                            <option value="">-- Choose Parent --</option>
+                                                            <option value="">-- Pilih Kategori Menu --</option>
                                                             @foreach ($categories as $id => $categoryName)
                                                                 <option
                                                                     {{ $id === $product->category_id ? 'selected' : null }}
@@ -54,29 +53,29 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="price">Price Product</label>
+                                                        <label for="price">Harga Menu Makanan</label>
                                                         <input type="number" class="form-control" name="price"
-                                                            id="price" placeholder="Price Product"
+                                                            id="price" placeholder="Masukkan Harga Menu Makanan"
                                                             value="{{ old('price', $product->price) }}">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="description">Description Product</label>
+                                                        <label for="description">Deskripsi Menu Makanan</label>
                                                         <textarea class="form-control" name="description" id="description" cols="30" rows="5"
-                                                            placeholder="Description Product">{{ old('description', $product->description) }}</textarea>
+                                                            placeholder="Masukkan Deskripsi Menu Makanan">{{ old('description', $product->description) }}</textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="details">Details Product</label>
+                                                        <label for="details">Detail Menu Makanan</label>
                                                         <textarea class="form-control" name="details" id="details" cols="30" rows="5"
-                                                            placeholder="Details Product">{{ old('details', $product->details) }}</textarea>
+                                                            placeholder="Masukkan Detail Menu Makanan">{{ old('details', $product->details) }}</textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="gallery">Upload Images Product</label>
+                                                        <label for="gallery">Unggah Gambar Menu Makanan</label>
                                                         <div class="needsclick dropzone" id="galleryDropzone"></div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                        <button type="submit" class="btn btn-primary mr-2">Simpan</button>
                                                         <a href="{{ route('products.index') }}"
-                                                            class="btn btn-light">Cancel</a>
+                                                            class="btn btn-light">Batal</a>
                                                     </div>
                                                 </form>
                                             </div>

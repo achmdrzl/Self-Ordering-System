@@ -20,18 +20,18 @@
                                     <div class="col-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p class="card-title">Detail Order :  Table <span>{{$orders->table_id}}</span></p>
+                                                <p class="card-title">Detail Order :  No Meja <span>{{$orders->table_id}}</span></p>
                                                 <table class="table table-hover mb-4">
                                                     <tr>
-                                                        <th>No Table</th>
+                                                        <th>No Meja</th>
                                                         <th colspan="6">{{ $orders->table_id }}</th>
                                                     </tr>
                                                     <tr>
-                                                        <th>Order Date</th>
+                                                        <th>Tanggan Pesanan</th>
                                                         <td colspan="6">{{ $orders->invoice->order_date }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Payment Method</th>
+                                                        <th>Metode Pembayaran</th>
                                                         <td colspan="6">{{ strtoupper($orders->invoice->payMethod) }}
                                                         </td>
                                                     </tr>
@@ -41,7 +41,7 @@
                                                             {{ number_format($orders->invoice->total) }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Status Order</th>
+                                                        <th>Status Pesanan</th>
                                                         <td colspan="6">
                                                             @if ($orders->status_order === 'Waiting')
                                                                 <div class="badge badge-danger" style="font-weight: bold">
@@ -66,8 +66,8 @@
                                                 <table class="table mb-4 display expandable-table table-responsive-md">
                                                     <thead>
                                                         <th>No</th>
-                                                        <th>Menu Order</th>
-                                                        <th>Qty</th>
+                                                        <th>Menu Yang di Pesan</th>
+                                                        <th>Kuantiti</th>
                                                         <th>Total</th>
                                                     </thead>
                                                     <tbody>
@@ -81,7 +81,7 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
-                                                <a href="{{ route('dashboard') }}" class="btn btn-primary btn-md">Back</a>
+                                                <a href="{{ route('dashboard') }}" class="btn btn-primary btn-md">Kembali</a>
                                                 @if ($orders->status_order === 'On the Way')
                                                 @else
                                                     @if ($orders->status_order === 'Waiting')

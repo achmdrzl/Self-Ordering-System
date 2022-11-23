@@ -13,12 +13,12 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-title">Data Tables</p>
+                                <p class="card-title">Data Meja Restoran</p>
                                 <div class="row">
                                     <div class="col-12">
                                         @if (Auth::user()->hasRole('manager'))
                                             <a class="btn btn-primary mb-3" href="{{ route('tables.create') }}"><i
-                                                    class="ti-plus btn-icon-append"></i> Add Tables</a>
+                                                    class="ti-plus btn-icon-append"></i> Tambah Meja</a>
                                         @endif
                                         @livewire('tables-list')
                                     </div>
@@ -54,7 +54,8 @@
                 })
 
                 window.addEventListener('tableDeleted', event => {
-                    swal("Success", "Table Deleted Successfully", "success");
+                    swal("Success", "Table Unactive Successfully", "success");
+                    location.reload();
                 })
 
                 // Tables Show
@@ -76,7 +77,8 @@
                 })
 
                 window.addEventListener('tableShowed', event => {
-                    swal("Success", "Table Active Successfully", "success");
+                    swal("Success", "Table Actived Successfully", "success");
+                    location.reload();
                 })
             </script>
         @endpush

@@ -7,10 +7,10 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="breadcrumb__text">
-                            <h2>{{ $product->name_product }} Package</h2>
+                            <h2>{{ $product->name_product }}</h2>
                             <div class="breadcrumb__option">
-                                <a href="{{ route('homepage') }}">Home</a>
-                                <span>{{ $product->name_product }} Package</span>
+                                <a href="{{ route('homepage') }}">Beranda</a>
+                                <span>{{ $product->name_product }}</span>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__text">
-                            <h3>{{ $product->name_product }} Package</h3>
+                            <h3>{{ $product->name_product }} </h3>
                             <div class="product__details__price">Rp. {{ $product->price }}</div>
                             <p>{{ $product->details }}</p>
                             <div class="product__details__quantity" style="width: 150px">
@@ -63,9 +63,7 @@
                             </div>
                             <a type="submit" data-method="post" class="primary-btn">
                                 <button type="submit"
-                                    style="background: 0%; border:none; display:flexbox; font-weight:bold; color:white">ADD
-                                    TO
-                                    CART</button>
+                                    style="background: 0%; border:none; display:flexbox; font-weight:bold; color:white">Pesan</button>
                             </a>
                             </form>
 
@@ -89,23 +87,23 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                        aria-selected="true">Description</a>
+                                        aria-selected="true">Deskripsi</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                        aria-selected="false">Information</a>
+                                        aria-selected="false">Informasi</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                     <div class="product__details__tab__desc">
-                                        <h6>Products Description</h6>
+                                        <h6>Deskripsi Menu</h6>
                                         <p>{{ $product->description }}</p>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="tabs-2" role="tabpanel">
                                     <div class="product__details__tab__desc">
-                                        <h6>Products Details</h6>
+                                        <h6>Detail Menu</h6>
                                         <p>{{ $product->details }}</p>
                                     </div>
                                 </div>
@@ -123,7 +121,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title related__product__title">
-                            <h2>Related Product</h2>
+                            <h2>Menu Yang Mirip</h2>
                         </div>
                     </div>
                 </div>

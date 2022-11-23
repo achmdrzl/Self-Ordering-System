@@ -83,7 +83,21 @@ class OrdersController extends Controller
                     'phone' => '08123456678',
                 ),
             );
-        } else {
+        } else if($orders->invoice->status == 'Pending' || $orders->invoice->status == 'pending'){
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => rand(),
+                    'gross_amount' => intval($cek),
+                ),
+                'customer_details' => array(
+                    'first_name' => "Example",
+                    'last_name' => '',
+                    'email' => 'ogani@gmail.com',
+                    'phone' => '08123456678',
+                ),
+            );
+        } 
+        else {
             $params = array(
                 'transaction_details' => array(
                     'order_id' => $orders->orderCode,

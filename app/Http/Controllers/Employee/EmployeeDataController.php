@@ -170,8 +170,6 @@ class EmployeeDataController extends Controller
     {
         User::find($id)->delete();
 
-        Toastr::info('User Updated Successfully!', 'Success', ["progressBar" => true,]);
-
         return response()->json(['status' => 'User Deleted Successfully!']);
     }
 }

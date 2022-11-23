@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>{{ $product->name_product }} Package</h2>
+                        <h2>{{ $product->name_product }}</h2>
                         <div class="breadcrumb__option">
-                            <a href="{{ route('homepage') }}">Home</a>
-                            <span>{{ $product->name_product }} Package</span>
+                            <a href="{{ route('homepage') }}">Beranda</a>
+                            <span>{{ $product->name_product }}</span>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>{{ $product->name_product }} Package</h3>
+                        <h3>{{ $product->name_product }} </h3>
                         <div class="product__details__price">Rp. {{ $product->price }}</div>
                         <p>{{ $product->details }}</p>
                         <div class="product__details__quantity">
@@ -52,9 +52,7 @@
                         </div>
                         <a type="submit" data-method="post" class="primary-btn">
                             <button type="submit"
-                                style="background: 0%; border:none; display:flexbox; font-weight:bold">ADD
-                                TO
-                                CART</button>
+                                style="background: 0%; border:none; display:flexbox; font-weight:bold">Pesan!</button>
                         </a>
                         </form>
 
@@ -127,8 +125,7 @@
                                     <li>
                                         <form method="post" action="{{ route('cart.store') }}">
                                             @csrf
-                                            <input type="hidden" name="id"
-                                                value="{{ $product->id }}" />
+                                            <input type="hidden" name="id" value="{{ $product->id }}" />
                                             <a type="submit" data-method="post">
                                                 <button type="submit"
                                                     style="border: none; color:transparent  background-color: transparent; border-radius:50% height: 40px;width: 40px; ">

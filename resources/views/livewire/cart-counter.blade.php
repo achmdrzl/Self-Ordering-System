@@ -7,7 +7,7 @@
         </li>
     @endif
     <li>
-        <a href="{{ route('cart.index') }}" style="color:black;">Cart <i class="fa fa-shopping-bag"></i>
+        <a href="{{ route('cart.index') }}" style="color:black;">Keranjang <i class="fa fa-shopping-bag"></i>
             <span>{{ $cart_count }}</span></a>
     </li>
 </ul>

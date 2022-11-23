@@ -24,20 +24,20 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-title">Employees Data</p>
+                                <p class="card-title">Data Karyawan</p>
                                 <div class="row">
                                     <div class="col-12">
                                         <a class="btn btn-primary mb-3" href="{{ route('employeeData.create') }}"
-                                            role="button"><i class="ti-plus btn-icon-append"></i> Add New Employee</a>
+                                            role="button"><i class="ti-plus btn-icon-append"></i> Tambah Karyawan</a>
                                         {{-- {{ $role->table() }} --}}
                                         <table id="table-id" class="table display expandable-table table-responsive-lg"
                                             style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Email</th>
-                                                    <th>Roles</th>
+                                                    <th>Posisi</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

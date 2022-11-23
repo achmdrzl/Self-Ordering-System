@@ -2,7 +2,7 @@
     <table id="table-id" cellpadding="5" class="table display expandable-table table-responsive-sm" style="width:100%;">
         <thead>
             <tr>
-                <th width="300px">No. Tables</th>
+                <th width="300px">No. Meja</th>
                 <th width="500px">Status</th>
                 <th>Action</th>
             </tr>
@@ -27,9 +27,13 @@
                     </td>
                     <td>
                         <div>
+                            @if($customer->status === 'Unactive')
+                            @else
                             <a href="{{ route('print.table', $customer->id) }}" class="btn btn-info btn-md text-white"
                                 style="height:40px; display:inline-flex; align-items:center; justify-content: center;"><i
-                                    class="ti-printer"></i> Print</a>
+                                    class="ti-printer"></i>Cetak</a>
+                            @endif
+
                             @if (Auth::user()->hasRole('manager'))
                                 <a href="{{ route('tables.edit', $customer->id) }}"
                                     class="btn btn-primary btn-md text-white"
@@ -38,11 +42,11 @@
                                 @if ($customer->status == 'Unactive')
                                     <button wire:click.prevent="showItem({{ $customer->id }});" type="submit"
                                         class="btn btn-success btn-sm" style="height:40px"><i class="ti-cloud-up"></i>
-                                        Show</button>
+                                        Tampilkan</button>
                                 @else
                                     <button wire:click.prevent="removeItem({{ $customer->id }});" type="submit"
                                         class="btn btn-danger btn-sm" style="height:40px"><i class="ti-cloud-down"></i>
-                                        Archive</button>
+                                        Arsipkan</button>
                                 @endif
                             @endif
                         </div>
