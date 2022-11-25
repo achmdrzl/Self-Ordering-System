@@ -54,17 +54,19 @@ class SpendingController extends Controller
         $total = count($request->item);
         foreach ($request->item as $key => $value) {
             Spending::create(
-                ['item' => $request->item[$key],
-                'kode' => 'ST_'.date('ymd'),
-                'qty' => $request->qty[$key],
-                'priceItem' => $request->priceItem[$key],
-                'spedingDate' => $request->spendingDate]
+                [
+                    'item' => $request->item[$key],
+                    'kode' => 'ST_' . date('ymd'),
+                    'qty' => $request->qty[$key],
+                    'priceItem' => $request->priceItem[$key],
+                    'spedingDate' => $request->spendingDate
+                ]
             );
         }
-        Toastr::success('Tables Created Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::success('Penambahan Data Pengeluaran Berhasil!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('spending.index')->with([
-            'message' => 'New Table Created Successfully',
+            'message' => 'Penambahan Data Pengeluaran Berhasil',
             'type' => 'success'
         ]);
     }
@@ -80,7 +82,7 @@ class SpendingController extends Controller
 
         $spendings = Spending::where('kode', $id)->get();
         $date = Spending::where('kode', $id)->first();
-        
+
         return view('employee.manager.spending.show', compact('spendings', 'date'));
     }
 

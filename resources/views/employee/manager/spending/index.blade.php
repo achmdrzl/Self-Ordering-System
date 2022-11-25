@@ -152,7 +152,7 @@
                                     <div class="col-md-3">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon2"
-                                                style="font-weight: bold">Quantity</span>
+                                                style="font-weight: bold">Kuantiti</span>
                                             <input type="number" id="payTotal" class="form-control" name="qty[]"
                                                 placeholder="Masukkan Kuantiti" required />
                                         </div>

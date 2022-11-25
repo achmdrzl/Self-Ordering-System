@@ -17,6 +17,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ShopController;
 use App\Models\Invoice;
 use Illuminate\Routing\RouteGroup;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,7 +68,8 @@ Route::group(['middleware' => ['table']], function(){
 });
 
 // employee controller
-Route::group(['middleware' => ['role:cashier|manager|chef']], function () {
+Route::group(['middleware' => ['role:cashier|manager|chef', 'auth']], function () {
+    
     // Dashboard
     Route::get('/dashboard', DashboardController::class . '@index')->name('dashboard');
     Route::get('/status_order/{id}', DashboardController::class . '@update_status')->name('update.status.order');
