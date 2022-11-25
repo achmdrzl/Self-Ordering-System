@@ -49,7 +49,7 @@ class ProductsController extends Controller
             $products->addMedia(storage_path('tmp/uploads/') . $file)->toMediaCollection('gallery');
         }
 
-        Toastr::success('Product Created Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::success('Menu Makanan Berhasil di Tambahkan!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('products.index')->with([
             'message' => 'Product Created Successfully',
@@ -108,7 +108,7 @@ class ProductsController extends Controller
             }
         }
 
-        Toastr::info('Product Updated Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::info('Menu Makanan Berhasil di Perbarui!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('products.index')->with([
             'message' => 'Product Updated Successfully',
@@ -128,14 +128,14 @@ class ProductsController extends Controller
             $product->update([
                 'status' => 'active'
             ]);
-            return response()->json(['status' => 'Product is Active!']);
+            return response()->json(['status' => 'Menu Makanan Aktif!']);
             
         } else {
             $product->update([
                 'status' => 'unactive'
             ]);
 
-            return response()->json(['status' => 'Product is Unactive!']);
+            return response()->json(['status' => 'Menu Makanan Tidak Aktif!']);
         }
     }
 }

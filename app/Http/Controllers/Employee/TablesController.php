@@ -57,7 +57,7 @@ class TablesController extends Controller
 
         $input = $request->all();
         $customer = Customer::create($input);
-        Toastr::success('Tables Created Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::success('Nomor Meja Berhasil di Tambahkan!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('tables.index')->with([
             'message' => 'New Table Created Successfully',
@@ -106,7 +106,7 @@ class TablesController extends Controller
         $table = Customer::find($id);
         $table->update($input);
 
-        Toastr::info('Tables Updated Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::info('Nomor Meja Berhasil di Perbarui!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('tables.index')->with([
             'message' => 'User Updated Successfully',
@@ -126,13 +126,13 @@ class TablesController extends Controller
             $tables->update([
                 'status' => 'Free'
             ]);
-            return response()->json(['status' => 'Tables is Active!']);
+            return response()->json(['status' => 'Nomor Meja Aktif!']);
         } else {
             $tables->update([
                 'status' => 'unactive'
             ]);
 
-            return response()->json(['status' => 'Tables is Unactive!']);
+            return response()->json(['status' => 'Nomor Meja Tidak Aktif!']);
         }
     }
 

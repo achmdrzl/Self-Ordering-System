@@ -115,6 +115,7 @@
                     <table>
                         <tr>
                             <td>
+                                <strong>Rincian Pesanan Restoran</strong><br>
                                 <strong>Periode Waktu</strong><br>
                                 {{ date('d F Y', strtotime($start)) }} s/d {{ date('d F Y', strtotime($end)) }} <br>
                             </td>
@@ -123,11 +124,11 @@
                 </td>
             </tr>
             <tr class="heading">
-                <td>Order Date</td>
-                <td align="left">Order Code</td>
-                <td>Payment Method</td>
+                <td>Tanggal Pesanan</td>
+                <td align="left">Kode Pesanan</td>
+                <td>Metode Bayar</td>
                 <td>Total</td>
-                <td>Total Payment</td>
+                <td>Total Bayar</td>
                 <td>Saldo</td>
             </tr>
             @foreach ($invoices as $row)
@@ -149,9 +150,83 @@
                 <td></td>
                 <td></td>
                 <td>Rp. {{ number_format($total) }}</td>
-                <td>Rp. {{ number_format($total) }}</td>
+                <td>Rp. {{ number_format($totalPay) }}</td>
                 <td>Rp. {{ $payBack == 0 ? '0.00' : number_format($payBack) }}</td>
             </tr>
+        </table>
+        <table style="width: 100%;">
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Rincian Pengeluaran Restoran</strong><br>
+                                <strong>Periode Waktu</strong><br>
+                                {{ date('d F Y', strtotime($start)) }} s/d {{ date('d F Y', strtotime($end)) }} <br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>Tanggal Pengeluaran</td>
+                <td align="left">Kode Item</td>
+                <td>Item</td>
+                <td>Kuantiti</td>
+                <td>Harga Item</td>
+            </tr>
+            @foreach ($spendings as $row)
+                <tr class="item">
+                    <td>
+                        <strong>{{ $row->spendingDate }}</strong>
+                    </td>
+                    <td align="left">{{ strtoupper($row->kode) }}</td>
+                    <td>{{ Str::ucfirst($row->item) }}</td>
+                    <td>{{ $row->qty }} Item</td>
+                    <td>Rp. {{ number_format($row->priceItem) }}
+                    </td>
+                </tr>
+            @endforeach
+
+            <tr class="heading">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ $qty }} Item</td>
+                <td>Rp. {{ number_format($total2) }}</td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;">
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Rincian Pendapatan Restoran</strong><br>
+                                <strong>Periode Waktu</strong><br>
+                                {{ date('d F Y', strtotime($start)) }} s/d {{ date('d F Y', strtotime($end)) }} <br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>Tanggal Pesanan</td>
+                <td>Total Pesanan</td>
+                <td>Total Pengeluaran</td>
+                <td>Total Pendapatan</td>
+            </tr>
+            @foreach ($reports as $row)
+                <tr class="item">
+                    <td>
+                        <strong>{{ $row->order_date }}</strong>
+                    </td>
+                    <td>Rp. {{ number_format($row->totalIncome) }}</td>
+                    <td>Rp. {{ number_format($row->totalSpend) }}</td>
+                    <td>Rp. {{ number_format($row->totalIncome-$row->totalSpend) }}</td>
+                </tr>
+            @endforeach
         </table>
     </div>
 </body>

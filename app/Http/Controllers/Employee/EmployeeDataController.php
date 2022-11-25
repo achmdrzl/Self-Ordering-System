@@ -89,7 +89,7 @@ class EmployeeDataController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        Toastr::success('User Created Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::success('Pengguna Berhasil di Tambahkan!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('employeeData.index')->with([
             'message' => 'User Created Successfully',
@@ -152,7 +152,7 @@ class EmployeeDataController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        Toastr::info('User Updated Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::info('Kategori Berhasil di Perbarui!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('employeeData.index')->with([
             'message' => 'User Updated Successfully',
@@ -170,6 +170,6 @@ class EmployeeDataController extends Controller
     {
         User::find($id)->delete();
 
-        return response()->json(['status' => 'User Deleted Successfully!']);
+        return response()->json(['status' => 'Pengguna Berhasil di Hapus!']);
     }
 }

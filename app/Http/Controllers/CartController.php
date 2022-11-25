@@ -59,7 +59,7 @@ class CartController extends Controller
             $product->price,
         );
 
-        Toastr::success('Successfully Added to Cart!', 'Success', ["progressBar" => true, "positionClass" => "toast-bottom-right",]);
+        Toastr::success('Pesanan Berhasil di Tambahkan!', 'Success', ["progressBar" => true, "positionClass" => "toast-bottom-right",]);
 
         return redirect()->back()->with([
             'message' => 'Successfully Added to Cart',
@@ -111,7 +111,7 @@ class CartController extends Controller
     {
         Cart::remove($request->input('id'));
         return redirect()->back()->with([
-            'message' => 'Successfully Deleted Product',
+            'message' => 'Menu Makanan Berhasil di Hapus!',
             'type' => 'danger'
         ]);
     }

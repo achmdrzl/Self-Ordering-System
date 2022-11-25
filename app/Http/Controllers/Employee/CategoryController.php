@@ -48,7 +48,7 @@ class CategoryController extends Controller
             $category->addMedia(storage_path('tmp/uploads/') . $request->input('photo'))->toMediaCollection('photo');
         }
 
-        Toastr::success('Category Created Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::success('Kategori Berhasil di Tambahkan!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('category.index')->with([
             'message' => 'Category Created Successfully',
@@ -99,7 +99,7 @@ class CategoryController extends Controller
             $category->photo->deleted();
         }
 
-        Toastr::info('Category Updated Successfully!', 'Success', ["progressBar" => true,]);
+        Toastr::info('Kategori Berhasil di Perbarui!', 'Success', ["progressBar" => true,]);
 
         return redirect()->route('category.index')->with([
             'message' => 'Category Updated Successfully',
@@ -119,13 +119,13 @@ class CategoryController extends Controller
             $category->update([
                 'status' => 'active'
             ]);
-            return response()->json(['status' => 'Category is Active!']);
+            return response()->json(['status' => 'Kategori Aktif!']);
         } else {
             $category->update([
                 'status' => 'unactive'
             ]);
 
-            return response()->json(['status' => 'Category is Unactive!']);
+            return response()->json(['status' => 'Kategori Tidak Aktif!']);
         }
     }
 }

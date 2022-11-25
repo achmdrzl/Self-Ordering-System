@@ -17,10 +17,10 @@ class PaymentController extends Controller
         $data = json_decode($request->get('result'));
         $invoice = Invoice::where('id', $id)->first();
 
-        // dd($data);
         // update invoice
         $invoice->update([
             'status' => $data->transaction_status,
+            'payTotal' => $invoice->total
         ]);
 
         // get data order

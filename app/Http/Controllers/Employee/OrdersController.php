@@ -154,7 +154,7 @@ class OrdersController extends Controller
         
         $orderProduct = OrderProduct::where('order_id', $order->id)->delete();
         
-        return response()->json(['status' => 'Data Order Deleted!']);
+        return response()->json(['status' => 'Data Pesanan Berhasil di Hapus!']);
 
         // return redirect()->route('orders.index')->with([
         //     'message' => 'Order Deleted Successfully',
