@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $menu_categories = Category::all();
+        $menu_categories = Category::where('status', 'active')->get();
         return view('frontend.homepage', compact('menu_categories'));
     }
 
@@ -44,7 +44,7 @@ class HomeController extends Controller
         if ($table) {
             // dd($cek_waktu);
             // Validasi Waktu
-            if ($cek_waktu >= 10 && $cek_waktu >= 20 ) {
+            if ($cek_waktu >= 10 && $cek_waktu >= 24 ) {
                 
                 return view('frontend.errorTime');
 

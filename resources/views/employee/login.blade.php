@@ -30,7 +30,7 @@
                             <!-- Validation Errors -->
                             <x-auth-validation-errors class="mb-4" :errors="$errors" />
                             <div class="brand-wrapper">
-                                <img src="{{ asset('frontend/img/logo.png') }}" alt="logo" class="logo">
+                                <img src="{{ asset('imgs/stiker2.png') }}" alt="logo">
                             </div>
                             <p class="login-card-description">Masuk Dengan Akun Kamu!</p>
                             <form method="POST" action="{{ route('login') }}">

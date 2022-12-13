@@ -129,7 +129,6 @@ class ProductsController extends Controller
                 'status' => 'active'
             ]);
             return response()->json(['status' => 'Menu Makanan Aktif!']);
-            
         } else {
             $product->update([
                 'status' => 'unactive'

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Traits;
 use Illuminate\Http\Request;
 
 trait ImgUploading{
+    
     public function storeImg(Request $request){
         $path = storage_path('tmp/uploads/');
 
