@@ -32,7 +32,6 @@ class Order extends Model
         if (Cart::total() == 0) {
 
             return redirect()->route('checkout.show');
-
         } else {
 
             // Check if there are any unfinished orders
@@ -64,7 +63,7 @@ class Order extends Model
                 // Validate Qty
                 #code
 
-                
+
                 // Place Order
                 $order_products = [];
                 foreach (Cart::content() as $cartData) {
@@ -74,7 +73,7 @@ class Order extends Model
                     $qty = $cartData->qty;
                     $products = Product::find($cartData->id);
                     $data = $products->stock - $qty;
-                    $products->where('id', $cartData->id)->update(['stock' => $data ]);
+                    $products->where('id', $cartData->id)->update(['stock' => $data]);
 
                     // Insert to Detail Order
                     $order_products[] = [

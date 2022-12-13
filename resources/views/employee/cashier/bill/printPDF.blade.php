@@ -106,7 +106,7 @@
                         <tr>
                             <td class="title">
                                 {{-- <img src="https://daengweb.id/front/dw-theme/images/logo-head.png" width="150px"> --}}
-                                <img src="https://ik.imagekit.io/dxofqajmq/Tugas_Akhir/logo_SZubKxvSW.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665337714536" width="150px">
+                                <img src="https://ik.imagekit.io/dxofqajmq/Tugas_Akhir/stiker_EcpBCLFo7.png?ik-sdk-version=javascript-1.4.3&updatedAt=1670944753295" width="150px">
                             </td>
 
                             <td>

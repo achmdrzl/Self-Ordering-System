@@ -44,9 +44,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'payMethod' => 'required',
-        ]);
+        // $this->validate($request, [
+        //     'payMethod' => 'required',
+        // ]);
 
         $payMethod = $request->input('payMethod');
 

@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="{{ route('homepage') }}"><img src="{{ asset('frontend/img/logo.png') }}"
+                        <a href="{{ route('homepage') }}"><img src="{{ asset('imgs/stiker2.png') }}"
                                 alt=""></a>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__copyright">
                         <div class="footer__about__logo">
-                            <a href="{{ route('homepage') }}"><img src="{{ asset('frontend/img/logo.png') }}" alt=""></a>
+                            <a href="{{ route('homepage') }}"><img src="{{ asset('imgs/stiker.png') }}" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: Indonesia</li>
